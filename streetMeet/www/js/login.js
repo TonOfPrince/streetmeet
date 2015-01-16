@@ -68,7 +68,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
           console.log('all of it', authData);
           $scope.currentUser = authData.facebook.cachedUserProfile;
           $scope.currentUserId = authData;
-          $state.go('map');
+          $state.transitionTo('map');
         }).catch(function(error) {
           console.error("Authentication failed:", error);
         });
