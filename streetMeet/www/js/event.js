@@ -153,7 +153,6 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
                 console.log('rejection')
                 alert("Data could not be saved." + error);
               } else {
-                console.log(id.key());
                 console.log('transitioning');
                 transitionToMap();
                 console.log("Owner data saved successfully.");
@@ -162,12 +161,6 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
             });
           } else {
             console.log('transitioning');
-            // $state.transitionTo('map', {
-            //   reload: true,
-            //   inherit: false,
-            //   notify: false
-            // // });
-            // });
             transitionToMap();
           }
         });
