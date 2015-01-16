@@ -156,7 +156,7 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
                   resolve();
                 }).then(function() {
                   console.log('transitioning');
-                  $state.transitionTo('mapCurrentEvents', {
+                  $state.transitionTo('map', {
                     reload: true,
                     inherit: false,
                     notify: false
@@ -173,14 +173,15 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
               resolve();
             }).then(function() {
               console.log('transitioning');
-              $state.transitionTo('mapCurrentEvents', {
+              $state.transitionTo('map', {
                 reload: true,
                 inherit: false,
                 notify: false
               });
-            }).then(function() {
-              window.location.reload(true);
-            });
+            })
+            // .then(function() {
+            //   window.location.reload(true);
+            // });
           }
         });
 
