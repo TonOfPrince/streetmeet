@@ -6,5 +6,7 @@ node_modules/
 **/public/.DS_Store
 streetMeet/www/lib/
 streetMeet/npm-debug.log
+streetMeet/platforms/
+streetMeet/hooks
 
 public/lib/

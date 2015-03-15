@@ -392,6 +392,29 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   opacity:0;
 }
 
+/******* Events Pane ********/
+
+.detail-section {
+  position: absolute;
+  height: 40%;
+  width: 100%;
+}
+
+.mid-header {
+  position: absolute;
+  top: 40%;
+  height: 8%;
+}
+
+.attendee-list {
+  overflow: auto;
+  position: absolute;
+  top: 48%;
+  height: 26%;
+  width: 100%;
+}
+
+
 
 /******* Create Event Pane ********/
 
@@ -527,8 +550,7 @@ ul#events-current{
   }
 
   .detail-info{
-    float: left;
-    max-width: 220px;
+    max-width: 320px;
   }
 
     .detail-info .time-remaining{
@@ -711,6 +733,7 @@ ul.settings-list{
 
 .scroll {
   height: 100%;
+  width: 100%;
 }
 
 #map-canvas .centerMarker{

@@ -175,3 +175,15 @@
 2015-01-14 17:25:32.825 streetMeet[11581:256640] Unlimited access to network resources
 2015-01-14 17:25:33.756 streetMeet[11581:256640] Resetting plugins due to page load.
 2015-01-14 17:25:34.544 streetMeet[11581:256640] Finished load of: http://10.6.17.250:8100/#/login
+2015-03-15 13:36:20.929 streetMeet[1661:26871] Apache Cordova native platform version 3.7.0 is starting.
+2015-03-15 13:36:20.930 streetMeet[1661:26871] Multi-tasking -> Device: YES, App: YES
+2015-03-15 13:36:20.943 streetMeet[1661:26871] Unlimited access to network resources
+2015-03-15 13:36:21.605 streetMeet[1661:26871] Resetting plugins due to page load.
+2015-03-15 13:36:22.429 streetMeet[1661:26871] Finished load of: file:///Users/LEIBO/Library/Developer/CoreSimulator/Devices/A5AC3ABF-9143-4C7B-AC92-D33C0A2CA8BB/data/Containers/Bundle/Application/DE6A9902-C946-40BE-8271-AA748B2C23D0/streetMeet.app/www/index.html#/login
+2015-03-15 13:36:57.671 streetMeet[2562:28594] Apache Cordova native platform version 3.7.0 is starting.
+2015-03-15 13:36:57.672 streetMeet[2562:28594] Multi-tasking -> Device: YES, App: YES
+2015-03-15 13:36:57.673 streetMeet[2562:28594] Unlimited access to network resources
+2015-03-15 13:36:57.944 streetMeet[2562:28594] Resetting plugins due to page load.
+2015-03-15 13:36:58.319 streetMeet[2562:28594] Finished load of: file:///Users/LEIBO/Library/Developer/CoreSimulator/Devices/A5AC3ABF-9143-4C7B-AC92-D33C0A2CA8BB/data/Containers/Bundle/Application/CDA343C2-020E-49C3-93C9-4F4A1A4F3F2C/streetMeet.app/www/index.html#/login
+2015-03-15 13:37:08.767 streetMeet[2562:28594] Resetting plugins due to page load.
+2015-03-15 13:37:08.824 streetMeet[2562:28594] Finished load of: file:///Users/LEIBO/Library/Developer/CoreSimulator/Devices/A5AC3ABF-9143-4C7B-AC92-D33C0A2CA8BB/data/Containers/Bundle/Application/CDA343C2-020E-49C3-93C9-4F4A1A4F3F2C/streetMeet.app/www/index.html?#/login

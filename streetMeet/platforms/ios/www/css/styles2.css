@@ -21,7 +21,6 @@
 margin-top: 0px;
 }
 
-
 /********* End Ionic Style Resets *********/
 
 html, body{
@@ -305,6 +304,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   clear: both;
 }
 
+.toggledOff{
+  display: none;
+}
+
 /********** Layout **********/
 
 .main-header{
@@ -388,6 +391,29 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 .loginSection.ng-hide {
   opacity:0;
 }
+
+/******* Events Pane ********/
+
+.detail-section {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+}
+
+.mid-header {
+  position: absolute;
+  top: 50%;
+  height: 8%;
+}
+
+.attendee-list {
+  overflow: auto;
+  position: absolute;
+  top: 58%;
+  height: 15%;
+  width: 100%;
+}
+
 
 
 /******* Create Event Pane ********/
@@ -552,7 +578,7 @@ ul#events-current{
     line-height: 1.2em;
   }
 
-  
+
 
 
 /******* User Profile Pane ********/
@@ -708,6 +734,7 @@ ul.settings-list{
 
 .scroll {
   height: 100%;
+  width: 100%;
 }
 
 #map-canvas .centerMarker{

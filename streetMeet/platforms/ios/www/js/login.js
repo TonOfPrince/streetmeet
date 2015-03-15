@@ -1,14 +1,14 @@
 angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic.utils'])
 
 
-.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q",
-  function($scope, $firebaseAuth, $cookieStore, $state, $q) {
 
+.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q", "Login",
+  function($scope, $firebaseAuth, $cookieStore, $state, $q, Login) {
     $scope.currentUser =  $cookieStore.get('currentData') || null;
     $scope.currentUserId =  $cookieStore.get('currentUser') || null;
-
     $scope.theEvents;
 
+    Login.getLocation();
 
     var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/");
     var auth = $firebaseAuth(ref);
@@ -18,7 +18,6 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
         password: thePass
       }).then(function(authData) {
         $cookieStore.put('currentUser', authData.uid );
-        console.log("Logged in as:", authData.uid);
         $state.transitionTo('mapCurrentEvents');
       }).catch(function(error) {
         console.error("Authentication failed:", error);
@@ -27,16 +26,14 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
 
     //AngularFire OAuth
     $scope.registerAccount = function(theEmail, thePass) {
-      console.log('Registering account');
       ref.createUser({
           email: theEmail,
           password: thePass
         }, function(error) {
           if(error === null) {
             $scope.simpleLogin(theEmail, thePass);
-            console.log("Stored user!");
           } else {
-            console.log("Error!", error);
+            console.error("Error!", error);
           }
         });
     }
@@ -48,30 +45,25 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
           var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
           ref.set(authData.facebook.cachedUserProfile, function(error) {
             if (error) {
-              console.log('error setting data!');
+              console.error('error setting data!');
             }
           })
           ref.child("display_name").set(authData.facebook.cachedUserProfile.first_name, function(error) {
             if (error) {
-              console.log('error setting display name!');
+              console.error('error setting display name!');
             }
           })
-          console.log('this is the authData: ', authData);
 
           $cookieStore.put('currentUser', authData.uid );
           $cookieStore.put('currentToken', authData.token );
           $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
-
-          console.log("Logged in as:", authData.uid);
-          console.log('all of it', authData);
           $scope.currentUser = authData.facebook.cachedUserProfile;
           $scope.currentUserId = authData;
-          $state.go('mapCurrentEvents');
+          $state.transitionTo('map');
         }).catch(function(error) {
           console.error("Authentication failed:", error);
         });
     };
-
 
     $scope.getSpecificEvent = function(event_id){
      //location for any given event
@@ -79,7 +71,6 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
       var locationRef = new Firebase("https://boiling-torch-2747.firebaseio.com/locations");
       var eventRef =  new Firebase("https://boiling-torch-2747.firebaseio.com/events");
       var eventLocationRef = eventRef.child(event_id).child("locations")  ;
-
 
       eventLocationRef.on("child_added", function(snap) {
         locationRef.child(snap.key()).once("value", function(){
@@ -90,13 +81,11 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
 
     $scope.getMyEvents = function(user_id){
         //events for any given user
-        console.log('the user id passed is :'+ user_id);
       var eventsRef = new Firebase("https://boiling-torch-2747.firebaseio.com/events");
       var userRef =   new Firebase("https://boiling-torch-2747.firebaseio.com/users");
       var userEventsRef = userRef.child(user_id).child("events");
       var result = [];
       userEventsRef.on("child_added", function(snap) {
-        console.log('this is the snap:', snap.val());
         eventsRef.child(snap.key()).on("value", function(data) {
           result.push(data.val());
         })
@@ -110,4 +99,47 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
       $cookieStore.remove('currentUser')
       $cookieStore.remove('currentToken');
     }
-}]);
+}])
+
+.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase, $cordovaGeolocation) {
+  var getLocation = function() {
+    var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+    if ( app ) {
+        // PhoneGap application
+        return $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+         geolocationCallbackQuery(position);
+        });
+    } else {
+      // Web page
+      if (typeof navigator !== "undefined" && typeof navigator.geolocation !== "undefined") {
+        navigator.geolocation.getCurrentPosition(geolocationCallbackQuery, errorHandler, {timeout:10000});
+      } else {
+        console.error("Your browser does not support the HTML5 Geolocation API");
+      }
+    }
+  };
+
+  var geolocationCallbackQuery = function(location) {
+    var latitude = location.coords.latitude;
+    var longitude = location.coords.longitude;
+    $cookieStore.put('userloc', location);
+  }
+
+  var errorHandler = function(error) {
+    if (error.code == 1) {
+      console.error("Error: PERMISSION_DENIED: User denied access to their location");
+    } else if (error.code === 2) {
+      console.error("Error: POSITION_UNAVAILABLE: Network is down or positioning satellites cannot be reached");
+    } else if (error.code === 3) {
+      console.error("Error: TIMEOUT: Calculating the user's location too took long");
+      geolocationCallbackQuery($cookieStore.get('userloc'));
+    } else {
+      console.error("Unexpected error code")
+    }
+  };
+  return {
+    getLocation: getLocation
+  }
+});

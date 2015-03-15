@@ -11,24 +11,20 @@ var meetApp = angular.module('sm-meetApp',
     'firebase',
     'ngCookies',
     'ngCordova',
-
-    //sm-meetApp Modules
     'sm-meetApp.login',
     'sm-meetApp.createEvents',
     'sm-meetApp.joinEvent',
     'sm-meetApp.userInterfaceController',
-    'sm-meetApp.map',
     'sm-meetApp.currentUser',
     'sm-meetApp.event',
     'sm-meetApp.profile',
     'sm-meetApp.editEvent',
-    'sm-meetApp.profileSettings'
+    'sm-meetApp.profileSettings',
+    'sm-meetApp.oneMap'
   ])
 // run in ionic
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
     }
@@ -39,18 +35,10 @@ var meetApp = angular.module('sm-meetApp',
 })
 // set up routing
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
-  // $httpProvider.defaults.useXDomain = true;
-  // $httpProvider.defaults.useXDomain = true;
-  // delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
   $urlRouterProvider.otherwise('/login');
 
-  // I'll do it without html5 for now
-  // TODO: refactor with push state
-  // $locationProvider.html5Mode(true);
   $stateProvider
     .state('login', {
-      // url: '/login?code',
       url: '/login',
       templateUrl : 'views/login.html',
       controller: 'LoginCtrl'
@@ -65,35 +53,24 @@ var meetApp = angular.module('sm-meetApp',
       templateUrl: 'views/listCurrentEvents.html',
       controller: 'JoinEventCtrl'
     })
-    .state('viewSingleEvent', {
-      url: '/viewEvent/:id',
-      templateUrl: 'views/singleEvent.html',
-      controller: 'EventCtrl'
-    })
     .state('attendEvent', {
       url: '/event/:id',
       templateUrl: 'views/attendEvent.html',
       controller: 'EventCtrl'
     })
-    .state('mapCurrentEvents', {
-      url: '/mapCurrentEvents',
-      templateUrl: 'views/mapCurrentEvents.html',
-      controller: 'MapCtrl'
-    })
-    .state('mapAttendees', {
-      url: '/mapAttendees',
-      templateUrl: 'views/mapAttendees.html',
-      controller: 'MapCtrl'
-    })
     .state('settings', {
       url: '/settings',
       templateUrl: 'views/userSettings.html',
-      // controller: 'SettingsCtrl'
     })
     .state('userProfile', {
       url: '/userProfile/:id',
       templateUrl: 'views/userProfile.html',
       controller: 'SettingsCtrl'
+    })
+    .state('map', {
+      url: '/map',
+      templateUrl: 'views/map.html',
+      controller: 'OneMapCtrl'
     })
     .state('userProfileSettings', {
       url: '/userProfileSettings/:id',
