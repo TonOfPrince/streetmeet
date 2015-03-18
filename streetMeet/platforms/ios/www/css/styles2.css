@@ -396,21 +396,21 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
 .detail-section {
   position: absolute;
-  height: 50%;
+  height: 40%;
   width: 100%;
 }
 
 .mid-header {
   position: absolute;
-  top: 50%;
+  top: 40%;
   height: 8%;
 }
 
 .attendee-list {
   overflow: auto;
   position: absolute;
-  top: 58%;
-  height: 15%;
+  top: 48%;
+  height: 26%;
   width: 100%;
 }
 
@@ -550,8 +550,7 @@ ul#events-current{
   }
 
   .detail-info{
-    float: left;
-    max-width: 220px;
+    max-width: 320px;
   }
 
     .detail-info .time-remaining{

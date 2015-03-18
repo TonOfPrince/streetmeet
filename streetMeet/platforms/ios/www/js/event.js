@@ -7,9 +7,10 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
   var eventObj = eventSync.$asObject();
   eventObj.$loaded().then(function() {
     eventObj.$bindTo($scope, "eventData").then(function() {
+  console.log($scope.eventData.timeLeft);
+
     })
   });
-
   var result = {};
   var refAttendees = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+$state.params.id+"/attendees");
   var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/");
