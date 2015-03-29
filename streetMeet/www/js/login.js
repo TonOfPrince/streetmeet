@@ -99,6 +99,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngCordova','ionic
       $cookieStore.remove('currentUser')
       $cookieStore.remove('currentToken');
     }
+
 }])
 
 .factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase, $cordovaGeolocation) {

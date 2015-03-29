@@ -367,10 +367,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   margin: 0 auto 10%;
   height: 35%;
   text-align: center;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  background-image: url(../img/logo_verge22.png);
+/*  background-position: center center;*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: 80%;*/
+/*  background-image: url(../img/logo_verge22.png);*/
 }
 
   #main-logo img{

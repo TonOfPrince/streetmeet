@@ -367,10 +367,10 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   margin: 0 auto 10%;
   height: 35%;
   text-align: center;
-/*  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 80%;
-  background-image: url(../img/logo_verge22.png);*/
+/*  background-position: center center;*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: 80%;*/
+/*  background-image: url(../img/logo_verge22.png);*/
 }
 
   #main-logo img{
@@ -430,7 +430,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
 /******* List Events Pane ********/
 ul#events-current{
-
+  position: absolute;
+  overflow: auto;
+  height: 70%;
 }
 
   li.item{
@@ -666,7 +668,10 @@ ul.user-list{
 
 /******* Edit Profile Settings ********/
 ul.settings-list{
-
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  overflow: auto;
 }
   li.setting-item{
   }
