@@ -389,7 +389,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   #main-logo img{
     width: 70%;
-    margin: 15% auto 0;
+    padding: 15%;
   }
 
 
