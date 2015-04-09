@@ -119,11 +119,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
         $scope.isEvent = true;
         $scope.event = currEventObj.$value;
         OneMap.vergingDisplay();
-        console.log($scope.isEvent)
       } else {
         $scope.isEvent = false;
-        console.log($scope.isEvent)
-
         OneMap.onKeyEnteredRegistration();
       }
     });

@@ -1,5 +1,5 @@
-<ion-pane id="createEvent" class="createEvent-pane" scroll="false">
-  <ion-content scroll="false">
+<div id="createEvent" class="createEvent-pane" scroll="false">
+  <div scroll="false">
     <div class="half-page-heading">
       <h1 >Host</h1>
       <h1 class="sub-heading">Something<br>Awesome!</h1>
@@ -18,16 +18,16 @@
       </button>
 
       <span class="sub-btn-link">
-        <a on-tap="$ionicGoBack(); removeCookie()" >Cancel</a>
+        <a ng-click="goBack(); removeCookie()" >Cancel</a>
       </span>
     </form>
 
-  </ion-content>
+  </div>
 
   <div class="settings-btn">
     <a ui-sref="settings">
       <i class="fa fa-cog"></i>
     </a>
   </div>
-</ion-pane>
+</div>
 

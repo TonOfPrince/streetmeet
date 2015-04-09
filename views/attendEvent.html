@@ -10,18 +10,19 @@
   <div class="has-header">
 
     <div class="detail-section">
-      <div class="top-right-control">
-        <ul>
-          <li><a ui-sref="editEventSettings({id: eventData.$id})" ng-show="owner"><i class="fa fa-edit"></i></a></li>
-        </ul>
-      </div>
+
       <div class="detail-img">
         <img src="http://lygsbtd.files.wordpress.com/2011/08/beer_toast.jpg" alt="">
       </div>
 
       <div class="detail-info">
         <!-- <span class="time-remaining"><span> -->
-        <h2 class="detail-title">{{eventData.title}}</h2>
+        <div class="title-row">
+          <h2 class="detail-title">{{eventData.title}}</h2>
+          <a ui-sref="editEventSettings({id: eventData.$id})" ng-show="owner" class="top-right-control">
+            <i class="fa fa-edit"></i>
+          </a>
+        </div>
         <span class="time">{{eventData.timeLeft}}</span>
         <span class="event-location-address">{{ eventData.address }}</span>
 
@@ -40,8 +41,7 @@
     </header>
 
     <div class="attendee-list">
-      <ul class="user-list">
-        <li class="item" ng-repeat="attendee in attendees">
+      <div class="user-list item" ng-repeat="attendee in attendees">
           <div class="clearfix item-content">
 
             <div class="event-more-info" ui-sref="userProfile({id:'facebook:'+attendee.id})">
@@ -60,9 +60,7 @@
             </header> <!-- .event-header -->
 
           </div>
-
-        </li>
-      </ul>
+      </div>
     </div> <!-- .attendee-list -->
 
     <button ng-click="leaveEvent()" ng-show="owner || leaver" class="btn-red btn icon-btn sticky-bottom">

@@ -341,21 +341,22 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
       top: 10px;
     }
 
-.top-right-control{
+/*.top-right-control{
   position: absolute;
   top: 25%;
   right: 5px;
   height:75%;
   width:20%;
-}
+}*/
 
-  .top-right-control ul li{
+  .top-right-control {
     display: inline-block;
   }
 
-  .top-right-control ul li a{
+  a.top-right-control{
     color: #2980b9;
     font-size: 1.2em;
+    float: right
   }
 
 
@@ -577,6 +578,7 @@ ul#events-current{
       font-size: 1.2em;
       margin: 0;
       text-transform: uppercase;
+      display: table;
     }
 
     .event-location-title, .event-location-address{
@@ -610,7 +612,7 @@ ul#events-current{
     z-index: 500;
   }
 
-ul.user-list{
+.user-list{
   margin: 10px 0;
 }
 
