@@ -1,10 +1,5 @@
 <div id="map" class="map-pane">
-  <div class="hTabs" >
-      <button class="header-tab" ui-sref="listCurrentEvents" ng-hide="isEvent">List</button>
-      <button class="header-tab create-toggle" ng-click=" toggleItem($event, 'button', '.create-toggle'); createEventMarker();" ng-hide="isEvent">Create Event</button>
-      <button class="btn-red header-tab create-toggle toggledOff cancel-btn" ng-click="toggleItem($event, 'button', '.create-toggle'); cancelCreateEvent();" ng-hide="isEvent">Cancel</button>
-      <button class="header-tab-full" ng-show="isEvent" ui-sref="attendEvent({id: event})">Attendee Map</button>
-  </div>
+
 
   <div scroll="false" class="map">
     <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="reverseAddress">
@@ -14,5 +9,11 @@
     <a ui-sref="settings">
       <i class="fa fa-cog"></i>
     </a>
+  </div>
+
+  <div class="hTabs" >
+      <button class="header-tab-full create-toggle" ng-click=" toggleItem($event, 'button', '.create-toggle'); createEventMarker();" ng-hide="isEvent">Send Location</button>
+      <button class="btn-red header-tab-full create-toggle toggledOff cancel-btn" ng-click="toggleItem($event, 'button', '.create-toggle'); cancelCreateEvent();" ng-hide="isEvent">Cancel</button>
+      <button class="header-tab-full" ng-show="isEvent" ui-sref="attendEvent({id: event})">Attendee Map</button>
   </div>
 </div>
