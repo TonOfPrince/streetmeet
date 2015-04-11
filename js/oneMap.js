@@ -26,22 +26,34 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     });
   };
 
-  // puts a marker on the center of the map to capture the location of a new event
-  $scope.createEventMarker = function() {
+  var init = function() {
+    OneMap.deleteMarkers();
+    var currentUser = $cookieStore.get('currentUser');
+    var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
+    var eventSync = $firebase(currEventRef);
+    var currEventObj = eventSync.$asObject();
+    // user's current event
+    currEventObj.$loaded().then(function() {
+      if (currEventObj.$value) {
+        $scope.isEvent = true;
+        $scope.event = currEventObj.$value;
+        OneMap.vergingDisplay();
+      } else {
+        $scope.isEvent = false;
+        OneMap.onKeyEnteredRegistration();
+      }
+    });
+
     OneMap.clearMarkers();
-    $('#pac-input').slideDown();
     map = OneMap.getMap();
     $('<div/>').addClass('centerMarker').appendTo(map.getDiv())
     .click(function(){
       $q(function(resolve, reject) {
         $('.centerMarker').remove();
-        $('#pac-input').slideUp();
-        $('.btn-red').toggle().siblings('.create-toggle').toggle();
-
         resolve();
       }).then(function() {
         $cookieStore.put('eventLoc', map.getCenter());
-        $state.transitionTo('createEvent');
+        $state.transitionTo('sendLoc');
       })
     });
     // location input bar with autocomplete
@@ -97,37 +109,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     });
     populateAddress();
     geocode();
-  };
-
-  $scope.cancelCreateEvent = function() {
-    OneMap.showMarkers();
-    $('.centerMarker').remove();
-    $('#pac-input').slideUp();
-    google.maps.event.removeListener(dragListener);
-  };
-
-  // $scope.$on('$ionicView.enter', function() {
-  var init = function() {
-    OneMap.deleteMarkers();
-    var currentUser = $cookieStore.get('currentUser');
-    var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
-    var eventSync = $firebase(currEventRef);
-    var currEventObj = eventSync.$asObject();
-    // user's current event
-    currEventObj.$loaded().then(function() {
-      if (currEventObj.$value) {
-        $scope.isEvent = true;
-        $scope.event = currEventObj.$value;
-        OneMap.vergingDisplay();
-      } else {
-        $scope.isEvent = false;
-        OneMap.onKeyEnteredRegistration();
-      }
-    });
-    $('.cancel-btn').hide().siblings().show();
-    // $scope.cancelCreateEvent();
-  };
-  init();
+  }();
 })
 
 .factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {

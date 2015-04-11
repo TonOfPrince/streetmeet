@@ -18,7 +18,9 @@ var meetApp = angular.module('sm-meetApp',
     'sm-meetApp.profile',
     'sm-meetApp.editEvent',
     'sm-meetApp.profileSettings',
-    'sm-meetApp.oneMap'
+    'sm-meetApp.oneMap',
+    'sm-meetApp.sendLoc'
+
   ])
 
 // set up routing
@@ -69,6 +71,11 @@ var meetApp = angular.module('sm-meetApp',
       url: '/editEvent/:id',
       templateUrl: 'views/editEvent.html',
       controller: 'EditEventCtrl'
+    })
+    .state('sendLoc', {
+      url: '/sendLoc',
+      templateUrl: 'views/sendLoc.html',
+      controller: 'SendLocCtrl'
     })
 });
 
