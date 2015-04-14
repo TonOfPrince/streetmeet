@@ -40,7 +40,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
 
     $scope.loginWithFacebook = function(){
       auth.$authWithOAuthPopup("facebook",
-        {scope: "email, user_events" }) // scope has the permissions requested
+        {scope: "email, user_events, user_friends" }) // scope has the permissions requested
         .then(function(authData) {
           var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
           ref.set(authData.facebook.cachedUserProfile, function(error) {

@@ -202,11 +202,11 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       });
     });
 
-    google.maps.event.addListener(map, 'bounds_changed', function() {
-      if (bounds.contains(map.getCenter())) return;
-      // We're out of bounds - Move the map back within the bounds
-      map.panToBounds(bounds)
-     });
+    // google.maps.event.addListener(map, 'bounds_changed', function() {
+    //   if (bounds.contains(map.getCenter())) return;
+    //   // We're out of bounds - Move the map back within the bounds
+    //   map.panToBounds(bounds)
+    //  });
     google.maps.event.addListener(map, 'zoom_changed', function() {
        if (map.getZoom() < 14) map.setZoom(14);
      });

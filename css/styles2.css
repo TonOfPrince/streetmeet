@@ -772,14 +772,15 @@ ul.settings-list{
 
 #map-canvas .centerMarker{
   position: absolute;
-  background: url(../img/icon_map_create_blue.png) no-repeat;
+  background: url(../img/icon_send_streetmeet.png) no-repeat;
+  /*background: url(../img/icon_map_create_blue.png) no-repeat;*/
   top: 50%;
   left: 50%;
   z-index: 1;
   margin-left: -81px;
   margin-top: -79px;
   height: 114px;
-  width: 160px;
+  width: 181px;
   cursor: pointer;
 }
 
@@ -803,9 +804,8 @@ ul.settings-list{
     text-overflow: ellipsis;
     position: absolute;
     left: 5%;
-    top: 5px;
+    top: 8%;
     z-index: 5;
-    /*display: none;*/
   }
 
 /***** Send Page ******/
