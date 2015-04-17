@@ -1,12 +1,17 @@
 <div id="map" class="map-pane">
-
-
   <div scroll="false" class="map">
     <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="reverseAddress">
     <div id="map-canvas" data-tap-disabled="true"></div>
   </div>
 
   <div class="hTabs" >
+      <div class="send-btn">
+        <div class="send-symbol">
+          <a ui-sref="settings">
+            <i class="fa fa-paper-plane"></i>
+          </a>
+        </div>
+      </div>
       <div class="short-address">{{numberReverseAddress}} {{streetReverseAddress}}</div>
       <div class="long-address">{{fullReverseAddress}}</div>
 

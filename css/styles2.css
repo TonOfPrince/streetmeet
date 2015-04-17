@@ -773,6 +773,28 @@ ul.settings-list{
   padding-top: 1.25em;
 }
 
+.send-btn {
+  position: absolute;
+  background-color: rgb(63,154,214);
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+
+  top: 82%;
+  right: 10%;
+}
+
+.send-symbol{
+  font-size: 2em;
+  padding-left: 0.2em;
+  padding-top: 0.3em;
+  z-index: 1000;
+}
+
+.send-symbol a{
+ color: rgb(44, 62, 80);
+}
+
 #map-canvas {
   width: 100%;
   height: 100%;
