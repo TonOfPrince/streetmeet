@@ -249,7 +249,7 @@ form{
 }
 
 input[type="text"], input[type="email"], input[type="password"], input[type="number"]{
-  width: 90%;
+  width: 95%;
   margin: 0 auto .65em;
   padding: 0 15px;
   border-radius: 30px;
@@ -875,7 +875,7 @@ ul.settings-list{
     font-weight: 400;
     text-overflow: ellipsis;
     position: absolute;
-    left: 5%;
+    left: 2.5%;
     top: 5%;
     z-index: 5;
   }

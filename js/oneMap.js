@@ -1,6 +1,6 @@
 angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
-.controller('OneMapCtrl', function($scope, $firebase, OneMap, $cookieStore, $state, $q) {
+.controller('OneMapCtrl', function($scope, $firebase, OneMap, $cookieStore, $state, $q, Login) {
 
   angular.extend($scope, OneMap);
   OneMap.initialize();
@@ -28,6 +28,18 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       populateAddress();
     });
   };
+
+  $scope.centerOnCurrentLoc = function() {
+    // update userLoc
+    Login.getLocation();
+    // grab user loc
+    var location = $cookieStore.get('userloc');
+    var latitude = location.coords.latitude;
+    var longitude = location.coords.longitude;
+    var pos = new google.maps.LatLng(latitude, longitude);
+    // center on user loc
+    map.setCenter(pos);
+  }
 
   var init = function() {
     OneMap.deleteMarkers();
@@ -71,6 +83,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
+        console.log(place.geometry.location);
         map.setCenter(place.geometry.location);
         map.setZoom(17);  // Why 17? Because it looks good.
       }
