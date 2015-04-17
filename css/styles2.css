@@ -770,8 +770,31 @@ ul.settings-list{
 
 .long-address {
   font-size: .8em;
-  padding-top: 1.25em;
+  padding-top: 1em;
 }
+
+.currentLoc-btn {
+  position: absolute;
+  background-color: rgb(63,154,214);
+  border-radius: 50%;
+  height: 3em;
+  width: 3em;
+
+  top: 70%;
+  right: 10%;
+}
+
+.currentLoc-symbol {
+  font-size: 2em;
+  padding-left: 0.33em;
+  padding-top: 0.25em;
+  z-index: 1000;
+}
+
+.currentLoc-symbol a{
+ color: rgb(44, 62, 80);
+}
+
 
 .send-btn {
   position: absolute;
