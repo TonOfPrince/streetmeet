@@ -10,7 +10,6 @@ var meetApp = angular.module('sm-meetApp',
     'ui.router',
     'ngCookies',
     'sm-meetApp.login',
-    'sm-meetApp.userInterfaceController',
     'sm-meetApp.currentUser',
     'sm-meetApp.oneMap',
     'sm-meetApp.vertDrag'
