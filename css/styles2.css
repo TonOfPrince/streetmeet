@@ -761,7 +761,16 @@ ul.settings-list{
 }
 
 .upIndicator {
-  padding-left: 50%
+  padding-left: 50%;
+  height: 10%;
+}
+
+.address-section {
+  height: 45%;
+}
+
+.send-section {
+  height: 45%;
 }
 
 .short-address {
@@ -780,7 +789,6 @@ ul.settings-list{
   border-radius: 50%;
   height: 3em;
   width: 3em;
-  top: .5em;
   right: 2%;
 }
 
@@ -802,7 +810,6 @@ ul.settings-list{
   border-radius: 50%;
   height: 3em;
   width: 3em;
-  bottom: 1em;
   right: 2%;
 }
 
