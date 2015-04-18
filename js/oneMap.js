@@ -1,6 +1,6 @@
 angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
-.controller('OneMapCtrl', function($scope, $firebase, OneMap, $cookieStore, $state, $q, Login) {
+.controller('OneMapCtrl', function($scope, $firebaseObject, OneMap, $cookieStore, $state, $q, Login) {
 
   angular.extend($scope, OneMap);
   OneMap.initialize();
@@ -45,8 +45,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     // OneMap.deleteMarkers();
     var currentUser = $cookieStore.get('currentUser');
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
-    var eventSync = $firebase(currEventRef);
-    var currEventObj = eventSync.$asObject();
+    // var eventSync = $firebase(currEventRef);
+    // var currEventObj = eventSync.$asObject();
+    var currEventObj = $firebaseObject(currEventRef);
     // user's current event
     currEventObj.$loaded().then(function() {
       if (currEventObj.$value) {
@@ -60,10 +61,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
     OneMap.clearMarkers();
     map = OneMap.getMap();
-    $('<div/>').addClass('centerMarker').appendTo(map.getDiv())
-    .click(function(){
-      $cookieStore.put('eventLoc', map.getCenter());
-    });
+    angular.element(map.getDiv()).append(angular.element('<div/>').addClass('centerMarker'));
     // location input bar with autocomplete
     var input = /** @type {HTMLInputElement} */(
         document.getElementById('pac-input'));
@@ -103,7 +101,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   }();
 })
 
-.factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {
+.factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebaseObject) {
   // user location geofire
   var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/user_locations");
   var userGeoFire = new GeoFire(userRef);
@@ -154,13 +152,13 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   var vergingDisplay = function() {
     var currentUser = $cookieStore.get('currentUser');
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
-    var eventSync = $firebase(currEventRef);
-    var currEventObj = eventSync.$asObject();
+    var currEventObj = $firebaseObject(currEventRef);
+    // var currEventObj = eventSync.$asObject();
     // user's current event
     currEventObj.$loaded().then(function() {
       var eventLocRef = new Firebase("https://boiling-torch-2747.firebaseio.com/archived/locations/"+currEventObj.$value+"/l")
-      var eventLocSync = $firebase(eventLocRef);
-      var eventLocObj = eventLocSync.$asObject();
+      var eventLocObj = $firebaseObject(eventLocRef);
+      // var eventLocObj = eventLocSync.$asObject();
       // user's current event location
       eventLocObj.$loaded().then(function() {
         var pos = new google.maps.LatLng(eventLocObj[0], eventLocObj[1]);
@@ -176,15 +174,15 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
           $state.transitionTo('attendEvent', {id: currEventObj.$value});
         });
         var attendeeRef = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+currEventObj.$value+"/attendees");
-        var attendeeSync = $firebase(attendeeRef);
-        var attendeeObj = attendeeSync.$asObject();
+        var attendeeObj = $firebaseObject(attendeeRef);
+        // var attendeeObj = attendeeSync.$asObject();
         // attendees of user's current event
         attendeeObj.$loaded().then(function() {
           angular.forEach(attendeeObj, function(value, key) {
             if (key !== currentUser) {
               var userLocRef = new Firebase("https://boiling-torch-2747.firebaseio.com/user_locations/"+key+"/l");
-              var userLocSync = $firebase(userLocRef);
-              var userLocObject = userLocSync.$asObject();
+              var userLocObject = $firebaseObject(userLocRef);
+              // var userLocObject = userLocSync.$asObject();
               // attendee's location
               userLocObject.$loaded().then(function() {
                 var pos = new google.maps.LatLng(userLocObject[0], userLocObject[1]);
@@ -242,8 +240,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     geolocationUpdate();
     // LOGIC HERE DETERMINING IF IN EVENT OR NOT
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$cookieStore.get('currentUser')+"/currentEvent");
-    var eventSync = $firebase(currEventRef);
-    var currEventObj = eventSync.$asObject();
+    var currEventObj = $firebaseObject(currEventRef);
+    // var currEventObj = eventSync.$asObject();
     currEventObj.$loaded().then(function() {
       if (currEventObj.$value) {
         vergingDisplay();

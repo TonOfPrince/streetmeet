@@ -1,10 +1,10 @@
 angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
 
-.controller('EventCtrl', function($scope, $firebase, $cookieStore, $state, Event, $q) {
+.controller('EventCtrl', function($scope, $firebaseObject, $cookieStore, $state, Event, $q) {
   angular.extend($scope, Event);
   var refEvent = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+$state.params.id);
-  var eventSync = $firebase(refEvent);
-  var eventObj = eventSync.$asObject();
+  var eventObj = $firebaseObject(refEvent);
+  // var eventObj = eventSync.$asObject();
   eventObj.$loaded().then(function() {
     eventObj.$bindTo($scope, "eventData").then(function() {
   console.log($scope.eventData.timeLeft);
@@ -17,11 +17,12 @@ angular.module('sm-meetApp.event',  ["firebase", 'ngCookies'])
   var id = ref.child("/users/");
 
   $scope.update = function() {
-    var attendeeObj = $firebase(refAttendees).$asObject();
+    var attendeeObj = $firebaseObject(refAttendees);
+    // var attendeeObj = $firebase(refAttendees).$asObject();
     attendeeObj.$loaded().then(function() {
       angular.forEach(attendeeObj, function(value, key) {
         if (value) {
-          var userObj = $firebase(ref.child("/users/"+key+"/userInfo")).$asObject();
+          var userObj = $firebaseObject(ref.child("/users/"+key+"/userInfo"));
           // grab user info to later display for each attendee
           userObj.$loaded().then(function() {
             result[key] = userObj;

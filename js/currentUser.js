@@ -1,6 +1,6 @@
 angular.module('sm-meetApp.currentUser',  ["firebase", 'ngCookies'])
 
-.controller('currentUser', function($scope, $firebase, $cookieStore) {
+.controller('currentUser', function($scope, $cookieStore) {
 
   $scope.currentUser = {
     name : 'Rick Takes',

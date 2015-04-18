@@ -9,12 +9,13 @@ var meetApp = angular.module('sm-meetApp',
     'firebase',
     'ui.router',
     'ngCookies',
+    'angular-gestures',
     'sm-meetApp.login',
     'sm-meetApp.createEvents',
     'sm-meetApp.joinEvent',
     'sm-meetApp.userInterfaceController',
     'sm-meetApp.currentUser',
-    'sm-meetApp.event',
+    // 'sm-meetApp.event',
     'sm-meetApp.profile',
     'sm-meetApp.editEvent',
     'sm-meetApp.profileSettings',
@@ -44,11 +45,11 @@ var meetApp = angular.module('sm-meetApp',
       templateUrl: 'views/listCurrentEvents.html',
       controller: 'JoinEventCtrl'
     })
-    .state('attendEvent', {
-      url: '/event/:id',
-      templateUrl: 'views/attendEvent.html',
-      controller: 'EventCtrl'
-    })
+    // .state('attendEvent', {
+    //   url: '/event/:id',
+    //   templateUrl: 'views/attendEvent.html',
+    //   controller: 'EventCtrl'
+    // })
     .state('settings', {
       url: '/settings',
       templateUrl: 'views/userSettings.html',

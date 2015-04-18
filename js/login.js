@@ -1,4 +1,4 @@
-angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
+angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'angular-gestures'])
 
 
 
@@ -25,30 +25,78 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
     };
 
     $scope.loginWithFacebook = function(){
-      auth.$authWithOAuthPopup("facebook",
-        {scope: "email, user_events, user_friends" }) // scope has the permissions requested
-        .then(function(authData) {
-          var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
-          ref.set(authData.facebook.cachedUserProfile, function(error) {
-            if (error) {
-              console.error('error setting data!');
-            }
-          })
-          ref.child("display_name").set(authData.facebook.cachedUserProfile.first_name, function(error) {
-            if (error) {
-              console.error('error setting display name!');
-            }
-          })
-
-          $cookieStore.put('currentUser', authData.uid );
-          $cookieStore.put('currentToken', authData.token );
-          $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
-          $scope.currentUser = authData.facebook.cachedUserProfile;
-          $scope.currentUserId = authData;
-          $state.transitionTo('map');
-        }).catch(function(error) {
+      ref.onAuth(function(authData) {
+        console.log(authData);
+        var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
+        ref.set(authData.facebook.cachedUserProfile, function(error) {
+          if (error) {
+            console.error('error setting data!');
+          }
+        })
+        ref.child("display_name").set(authData.facebook.cachedUserProfile.first_name, function(error) {
+          if (error) {
+            console.error('error setting display name!');
+          }
+        })
+        console.log('asdf')
+        $cookieStore.put('currentUser', authData.uid );
+        $cookieStore.put('currentToken', authData.token );
+        $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
+        $scope.currentUser = authData.facebook.cachedUserProfile;
+        $scope.currentUserId = authData;
+        $state.transitionTo('map');
+      });
+      auth.$authWithOAuthRedirect("facebook", function(error, authData) {
+        if (error) {
           console.error("Authentication failed:", error);
-        });
+          // $state.transitionTo('map');
+        } else {
+
+          // console.log(authData);
+          // var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
+          // ref.set(authData.facebook.cachedUserProfile, function(error) {
+          //   if (error) {
+          //     console.error('error setting data!');
+          //   }
+          // })
+          // ref.child("display_name").set(authData.facebook.cachedUserProfile.first_name, function(error) {
+          //   if (error) {
+          //     console.error('error setting display name!');
+          //   }
+          // })
+          // console.log('asdf')
+          // $cookieStore.put('currentUser', authData.uid );
+          // $cookieStore.put('currentToken', authData.token );
+          // $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
+          // $scope.currentUser = authData.facebook.cachedUserProfile;
+          // $scope.currentUserId = authData;
+          // $state.transitionTo('map');
+        }
+      },
+      // auth.$authWithOAuthPopup("facebook",
+        {scope: "email, user_events, user_friends" }) // scope has the permissions requested
+        // .then(function(authData) {
+        //   var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
+        //   ref.set(authData.facebook.cachedUserProfile, function(error) {
+        //     if (error) {
+        //       console.error('error setting data!');
+        //     }
+        //   })
+        //   ref.child("display_name").set(authData.facebook.cachedUserProfile.first_name, function(error) {
+        //     if (error) {
+        //       console.error('error setting display name!');
+        //     }
+        //   })
+        //   console.log('asdf')
+        //   $cookieStore.put('currentUser', authData.uid );
+        //   $cookieStore.put('currentToken', authData.token );
+        //   $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
+        //   $scope.currentUser = authData.facebook.cachedUserProfile;
+        //   $scope.currentUserId = authData;
+        //   $state.transitionTo('map');
+        // }).catch(function(error) {
+        //   console.error("Authentication failed:", error);
+        // });
     };
 
     $scope.getSpecificEvent = function(event_id){
@@ -88,7 +136,8 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
 
 }])
 
-.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {
+.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state) {
+// .factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {
   var getLocation = function() {
     // Web page
     if (typeof navigator !== "undefined" && typeof navigator.geolocation !== "undefined") {

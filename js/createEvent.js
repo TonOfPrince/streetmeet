@@ -1,6 +1,6 @@
 angular.module('sm-meetApp.createEvents',  ["firebase", 'ngCookies'])
 
-.controller('CreateEventsCtrl', function($scope, $firebase, $cookieStore, EventCreator, $state) {
+.controller('CreateEventsCtrl', function($scope, $cookieStore, EventCreator, $state) {
   angular.extend($scope, EventCreator);
   $scope.eventAddress = $cookieStore.get('addressBox');
   $scope.timerRunning = true;
