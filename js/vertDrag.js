@@ -18,7 +18,7 @@ directive('draggable', function($document) {
       if (y > 0) {
         element.css({
           top: 0 + 'px',
-          height: offsetHeight-y + 'px'
+          height: offsetHeight + 'px'
         });
       } else {
         element.css({
