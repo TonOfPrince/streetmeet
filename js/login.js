@@ -102,6 +102,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
     var latitude = location.coords.latitude;
     var longitude = location.coords.longitude;
     $cookieStore.put('userloc', location);
+    $cookieStore.put('userloc', location);
   }
 
   var errorHandler = function(error) {

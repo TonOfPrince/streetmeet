@@ -42,7 +42,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   }
 
   var init = function() {
-    OneMap.deleteMarkers();
+    // OneMap.deleteMarkers();
     var currentUser = $cookieStore.get('currentUser');
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
     var eventSync = $firebase(currEventRef);

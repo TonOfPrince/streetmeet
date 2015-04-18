@@ -19,7 +19,8 @@ var meetApp = angular.module('sm-meetApp',
     'sm-meetApp.editEvent',
     'sm-meetApp.profileSettings',
     'sm-meetApp.oneMap',
-    'sm-meetApp.sendLoc'
+    'sm-meetApp.sendLoc',
+    'sm-meetApp.vertDrag'
 
   ])
 
