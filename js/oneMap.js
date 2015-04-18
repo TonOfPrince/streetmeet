@@ -322,8 +322,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   var eventStatus = function() {
     var currentUser = $cookieStore.get('currentUser');
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
-    var eventSync = $firebase(currEventRef);
-    var currEventObj = eventSync.$asObject();
+    var currEventObj = $firebaseObject(currEventRef);
+    // var currEventObj = eventSync.$asObject();
     // user's current event
     return currEventObj.$loaded().then(function() {
       return currEventObj.$value;
