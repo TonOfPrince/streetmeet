@@ -110,7 +110,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
     } else if (error.code === 2) {
       console.error("Error: POSITION_UNAVAILABLE: Network is down or positioning satellites cannot be reached");
     } else if (error.code === 3) {
-      console.error("Error: TIMEOUT: Calculating the user's location too took long");
+      console.error("Error: TIMEOUT: Calculating the user's location took long");
       geolocationCallbackQuery($cookieStore.get('userloc'));
     } else {
       console.error("Unexpected error code")

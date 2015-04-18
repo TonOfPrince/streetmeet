@@ -55,7 +55,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
         OneMap.vergingDisplay();
       } else {
         $scope.isEvent = false;
-        OneMap.onKeyEnteredRegistration();
       }
     });
 
@@ -83,7 +82,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
       } else {
-        console.log(place.geometry.location);
         map.setCenter(place.geometry.location);
         map.setZoom(17);  // Why 17? Because it looks good.
       }
@@ -151,59 +149,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   var initialize = function() {
     drawMap();
   }
-
-  // print events out on the map queried from GeoFire
-  var onKeyEnteredRegistration = function() {
-    var refLoc = new Firebase("https://boiling-torch-2747.firebaseio.com/curr/locations");
-    var geoFire = new GeoFire(refLoc);
-    var location = $cookieStore.get('userloc');
-    var latitude = location.coords.latitude;
-    var longitude = location.coords.longitude;
-    var geoQuery = geoFire.query({
-      center: [latitude, longitude],
-      radius: 1.609344
-    });
-    geoQuery.on("key_entered", function(key, location, distance) {
-      var refEvent = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+key);
-      var eventSync = $firebase(refEvent);
-      var eventObj = eventSync.$asObject();
-      // event data
-      eventObj.$loaded().then(function() {
-        // add marker for an event if it was created in the past 22 minutes
-        // if (false) {
-        if (eventObj.createdAt > Date.now() - 1320000) {
-          var pos = new google.maps.LatLng(location[0], location[1]);
-          var marker = new google.maps.Marker({
-            position: pos,
-            map: map,
-            icon: '/img/icon_map_join_blue-16.png',
-            title: key
-          });
-          // bounds.extend(pos);
-
-          markers.push(marker);
-          google.maps.event.addListener(marker, 'click', function() {
-            $state.transitionTo('attendEvent', {id: key}, {
-              reload: true,
-              inherit: false,
-              notify: true
-            });
-          })
-        } else {
-          geoFire.remove(key);
-        }
-      });
-    });
-
-    // google.maps.event.addListener(map, 'bounds_changed', function() {
-    //   if (bounds.contains(map.getCenter())) return;
-    //   // We're out of bounds - Move the map back within the bounds
-    //   map.panToBounds(bounds)
-    //  });
-    // google.maps.event.addListener(map, 'zoom_changed', function() {
-    //    if (map.getZoom() < 14) map.setZoom(14);
-    //  });
-  };
 
   // show attendees converging to an event on the screen
   var vergingDisplay = function() {
@@ -302,8 +247,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     currEventObj.$loaded().then(function() {
       if (currEventObj.$value) {
         vergingDisplay();
-      } else {
-        onKeyEnteredRegistration();
       }
     });
 
@@ -396,7 +339,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     getMap: getMap,
     getMarkers: getMarkers,
     clearMarkers: clearMarkers,
-    onKeyEnteredRegistration: onKeyEnteredRegistration,
     reverseAddress: reverseAddress,
     map: map,
     drawMap: drawMap,
