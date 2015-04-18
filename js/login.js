@@ -24,20 +24,6 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
       });
     };
 
-    //AngularFire OAuth
-    $scope.registerAccount = function(theEmail, thePass) {
-      ref.createUser({
-          email: theEmail,
-          password: thePass
-        }, function(error) {
-          if(error === null) {
-            $scope.simpleLogin(theEmail, thePass);
-          } else {
-            console.error("Error!", error);
-          }
-        });
-    }
-
     $scope.loginWithFacebook = function(){
       auth.$authWithOAuthPopup("facebook",
         {scope: "email, user_events, user_friends" }) // scope has the permissions requested

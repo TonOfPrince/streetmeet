@@ -14,7 +14,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
         $scope.numberReverseAddress = results[0].address_components[0].short_name;
         $scope.streetReverseAddress = results[0].address_components[1].short_name;
         $scope.fullReverseAddress = results[0].formatted_address;
-        console.log(results);
         $cookieStore.put("addressBox", $scope.reverseAddress)
         $scope.$apply();
       } else {
@@ -39,6 +38,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var pos = new google.maps.LatLng(latitude, longitude);
     // center on user loc
     map.setCenter(pos);
+    populateAddress();
   }
 
   var init = function() {
