@@ -1,4 +1,4 @@
-angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'angular-gestures'])
+angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
 
 
 

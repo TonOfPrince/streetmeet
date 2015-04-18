@@ -19,7 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-gestures": "latest",
     "jquery": "~2.1.2",
     "quojs": "~3.0.6",
     "moment": "~2.9.0"
