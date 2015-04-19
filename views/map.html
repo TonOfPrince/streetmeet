@@ -29,6 +29,7 @@
         <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
           <div class="friend-pic-wrapper">
           <img class="friend-pic" src={{friend.image}}>
+          <!-- <img class="friend-pic"> -->
           </div>
           <span class="friend-name">
             {{friend.name}}
@@ -53,5 +54,5 @@
         </div>
       </div>
     </div>
-  </div> <!-- hTabs -->
+  </div> hTabs
 </div>

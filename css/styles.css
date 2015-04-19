@@ -170,7 +170,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     background-color: #fff;
     height: 2em;
     color: black;
-
   }
 
   .address-search-bar {
@@ -185,10 +184,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   .search {
     height: 1.5em;
-    width: 5%;
-    padding-right: 2.5%;
-    padding-left: 2.5%;
+    width: 10%;
     padding-top: 0.5em;
+    text-align: center;
   }
 
   #pac-input {
@@ -198,9 +196,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   .times {
     height: 1.5em;
-    width: 5%;
-    padding-right: 2.5%;
-    padding-left: 2.5%;
+    width: 10%;
+    text-align: center;
     padding-top: 0.5em;
     float: right;
   }
@@ -245,13 +242,13 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     }
 
     .currentLoc-btn {
-      position: absolute;
+      position: fixed;
       background-color: rgb(63,154,214);
       border-radius: 50%;
-      top: 0.5em;
+      top: 2.5em;
       height: 3em;
       width: 3em;
-      right: 2%;
+      right: 0.5em;
     }
 
     .currentLoc-symbol {

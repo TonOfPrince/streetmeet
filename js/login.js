@@ -4,8 +4,8 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
 
 .controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q", "Login", "$localStorage",
   function($scope, $firebaseAuth, $cookieStore, $state, $q, Login, $localStorage) {
-    $scope.currentUser =  $cookieStore.get('currentData') || null;
-    $scope.currentUserId =  $cookieStore.get('currentUser') || null;
+    $scope.currentUser =  $localStorage.currentData || null;
+    $scope.currentUserId =  $localStorage.currentUser || null;
     $scope.theEvents;
 
     Login.getLocation();
@@ -49,9 +49,9 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
             console.error('error setting display name!');
           }
         })
-        $cookieStore.put('currentUser', authData.uid );
-        $cookieStore.put('currentToken', authData.token );
-        $cookieStore.put('currentData', authData.facebook.cachedUserProfile );
+        $localStorage.currentUser = authData.uid;
+        $localStorage.currentToken = authData.token;
+        $localStorage.currentData = authData.facebook.cachedUserProfile;
         $scope.currentUser = authData.facebook.cachedUserProfile;
         $scope.currentUserId = authData;
         $state.transitionTo('map');
@@ -93,7 +93,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
       console.error("Error: POSITION_UNAVAILABLE: Network is down or positioning satellites cannot be reached");
     } else if (error.code === 3) {
       console.error("Error: TIMEOUT: Calculating the user's location took long");
-      geolocationCallbackQuery($cookieStore.get('userloc'));
+      geolocationCallbackQuery($localStorage.userloc);
     } else {
       console.error("Unexpected error code")
     }
