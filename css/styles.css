@@ -219,13 +219,14 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   .hTabs {
     width: 100%;
-    height: 4em;
+    height: 4.5em;
     background: #2c3e50;
     font-family: 'Josefin Slab', serif;
     color: #fff;
     border: none;
     position: fixed;
     bottom: 0;
+    min-height: 4.5em;
   }
 
   .short-address-section {
