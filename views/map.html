@@ -4,35 +4,20 @@
 
   <div scroll="false" class="map">
     <div id="map-canvas" data-tap-disabled="true"></div>
+    <div class="currentLoc-btn" ng-click="centerOnCurrentLoc()">
+      <div class="currentLoc-symbol">
+        <!-- <a> -->
+          <i class="fa fa-dot-circle-o"></i>
+        <!-- </a> -->
+      </div>
+    </div>
   </div>
 
   <div class="hTabs">
-    <div class="short-address-section">
-      <!-- <i class="fa fa-chevron-up"></i> -->
-      <div class="currentLoc-btn" ng-click="centerOnCurrentLoc()">
-        <div class="currentLoc-symbol">
-          <a>
-            <i class="fa fa-dot-circle-o"></i>
-          </a>
-        </div>
-      </div> <!-- button -->
-      <div class="short-address">{{numberReverseAddress}} {{streetReverseAddress}}</div>
-    </div>
-
-    <div class="long-address-section">
-      <div class="long-address">{{fullReverseAddress}}</div>
-    </div> <!-- address section -->
-
-    <div class="separation">
-      <hr>
-    </div>
-
     <div class="send-section">
       <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
-      <!-- <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter"> -->
-      <!-- <div class="friendList"> -->
       <div class="friend-list">
-        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend">
+        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee()">
           <img class="friend-pic" src={{friend.image}}>
           <span class="friend-name">{{friend.name}}</span>
         </div>
