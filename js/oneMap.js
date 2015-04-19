@@ -78,6 +78,16 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     }
   }
 
+  $scope.openSendInfo = function($event) {
+    var sendInfo = $(".hTabs")
+    var sendInfoHeight = parseFloat(sendInfo.height());
+    var pageHeight = parseFloat($("#map-page").height());
+    var maxSendInfoHeight = pageHeight/2
+    if (sendInfoHeight < maxSendInfoHeight) {
+      sendInfo.height(maxSendInfoHeight+"px");
+    }
+  }
+
   var init = function() {
     // OneMap.deleteMarkers();
     var currentUser = $localStorage.currentUser;
