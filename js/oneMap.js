@@ -57,6 +57,14 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     populateAddress();
   }
 
+  $scope.clearAddress = function() {
+    $scope.shortReverseAddress = '';
+  }
+
+  $scope.clearFriendFilter = function() {
+    $scope.friendFilter = '';
+  }
+
   $scope.isChosen = function(friend) {
     return $scope.chosenFriends.indexOf(friend) !== -1;
   }

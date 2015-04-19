@@ -1,6 +1,10 @@
 <div id="map-page">
 
-  <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="shortReverseAddress">
+  <div class = "search-bar">
+    <i class="fa fa-search search"></i>
+    <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="shortReverseAddress">
+    <i class="fa fa-times times" ng-click="clearAddress()"></i>
+  </div>
 
   <div scroll="false" class="map">
     <div id="map-canvas" data-tap-disabled="true"></div>
@@ -13,7 +17,12 @@
 
   <div class="hTabs">
     <div class="send-section">
-      <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
+      <div class = "search-bar">
+        <i class="fa fa-search search"></i>
+        <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
+        <i class="fa fa-times times" ng-click="clearFriendFilter()"></i>
+
+      </div>
       <div class="friend-list">
         <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
           <div class="friend-pic-wrapper">
