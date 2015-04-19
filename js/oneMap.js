@@ -48,7 +48,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     Login.getLocation();
     // grab user loc
     var location = $localStorage.userloc;
-    console.log(location)
     var latitude = location.coords.latitude;
     var longitude = location.coords.longitude;
     var pos = new google.maps.LatLng(latitude, longitude);
@@ -111,7 +110,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
     OneMap.clearMarkers();
     map = OneMap.getMap();
-    angular.element(map.getDiv()).append(angular.element('<div/>').addClass('centerMarker'));
+    var centerMarker = angular.element('<div/>').addClass('centerMarker')
+    angular.element(map.getDiv()).append(centerMarker);
+    centerMarker.on('click', populateAddress);
     // location input bar with autocomplete
     var input = /** @type {HTMLInputElement} */(
         document.getElementById('pac-input'));
