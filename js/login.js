@@ -1,9 +1,9 @@
-angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
+angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
 
 
 
-.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q", "Login",
-  function($scope, $firebaseAuth, $cookieStore, $state, $q, Login) {
+.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q", "Login", "$localStorage",
+  function($scope, $firebaseAuth, $cookieStore, $state, $q, Login, $localStorage) {
     $scope.currentUser =  $cookieStore.get('currentData') || null;
     $scope.currentUserId =  $cookieStore.get('currentUser') || null;
     $scope.theEvents;
@@ -69,7 +69,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
 
 }])
 
-.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state) {
+.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $localStorage) {
 // .factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {
   var getLocation = function() {
     // Web page
@@ -83,8 +83,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies'])
   var geolocationCallbackQuery = function(location) {
     var latitude = location.coords.latitude;
     var longitude = location.coords.longitude;
-    $cookieStore.put('userloc', location);
-    $cookieStore.put('userloc', location);
+    $localStorage.userloc = location;
   }
 
   var errorHandler = function(error) {

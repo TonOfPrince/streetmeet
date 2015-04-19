@@ -1,6 +1,6 @@
 angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
-.controller('OneMapCtrl', function($scope, $firebaseObject, OneMap, $cookieStore, $state, $q, Login) {
+.controller('OneMapCtrl', function($scope, $firebaseObject, OneMap, $cookieStore, $localStorage, $state, $q, Login) {
 
   angular.extend($scope, OneMap);
   OneMap.initialize();
@@ -32,7 +32,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     // update userLoc
     Login.getLocation();
     // grab user loc
-    var location = $cookieStore.get('userloc');
+    var location = $localStorage.userloc;
     var latitude = location.coords.latitude;
     var longitude = location.coords.longitude;
     var pos = new google.maps.LatLng(latitude, longitude);
@@ -101,7 +101,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   }();
 })
 
-.factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebaseObject) {
+.factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $localStorage, $state, $firebaseObject) {
   // user location geofire
   var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/user_locations");
   var userGeoFire = new GeoFire(userRef);
@@ -209,7 +209,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   /* Callback method from the geolocation API which receives the current user's location */
   // draws the map on the canvas centered at the user's location
   var drawMap = function(location) {
-    var userloc = $cookieStore.get('userloc');
+    // var userloc = $cookieStore.get('userloc');
+    var userloc = $localStorage.userloc;
     var latitude = userloc.coords.latitude;
     var longitude = userloc.coords.longitude;
     var center = new google.maps.LatLng(latitude, longitude)
@@ -258,7 +259,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       console.error("Error: POSITION_UNAVAILABLE: Network is down or positioning satellites cannot be reached");
     } else if (error.code === 3) {
       console.error("Error: TIMEOUT: Calculating the user's location too took long");
-      geolocationCallbackQuery($cookieStore.get('userloc'));
+      geolocationCallbackQuery($localStorage.userloc);
+      // geolocationCallbackQuery($cookieStore.get('userloc'));
     } else {
       console.error("Unexpected error code")
     }

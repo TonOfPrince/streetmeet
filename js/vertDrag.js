@@ -5,15 +5,18 @@ directive('draggable', function($document) {
     element.css({
      position: 'relative',
     });
-    element.on('mousedown', function(event) {
+    element.on('touchstart', function(event) {
+    // element.on('mousedown', function(event) {
       // Prevent default dragging of selected content
       event.preventDefault();
       startY = event.screenY - y;
-      $document.on('mousemove', mousemove);
-      $document.on('mouseup', mouseup);
+      // $document.on('mousemove', mousemove);
+      $document.on('touchmove', touchmove);
+      // $document.on('mouseup', mouseup);
+      $document.on('touchend', touchend);
     });
 
-    function mousemove(event) {
+    function touchmove(event) {
       y = event.screenY - startY;
       if (y > 0) {
         element.css({
@@ -29,9 +32,9 @@ directive('draggable', function($document) {
       }
     }
 
-    function mouseup() {
-      $document.off('mousemove', mousemove);
-      $document.off('mouseup', mouseup);
+    function touchend() {
+      $document.off('touchmove', touchmove);
+      $document.off('touchend', touchend);
     }
   };
 });
