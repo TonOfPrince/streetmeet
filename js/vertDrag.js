@@ -4,18 +4,15 @@ directive('draggable', function($document) {
     var startY = 0, y = 0, offsetHeight = element[0].offsetHeight,
         maxHeight = offsetHeight + element[0].offsetTop;
     element.on('touchstart', function(event) {
-    // element.on('mousedown', function(event) {
-      // Prevent default dragging of selected content
       startY = event.touches[0].screenY - y;
-      // $document.on('mousemove', mousemove);
       $document.on('touchmove', touchmove);
-      // $document.on('mouseup', mouseup);
       $document.on('touchend', touchend);
     });
 
     function touchmove(event) {
       event.preventDefault();
       y = event.touches[0].screenY - startY;
+
       if (y < maxHeight*(-1)) {
         y  = maxHeight*(-1);
         element.css({
