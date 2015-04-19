@@ -270,7 +270,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   }
 
   .friend-list {
-    height: 70%;
+    height: 75%;
     width: 100%;
     top:10%;
     position: absolute;
@@ -290,29 +290,34 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   .friend-name {
     top: 1em;
+    width: 60%;
     position: absolute;
-    padding-left: 1%
+    left: 20%;
+  }
+
+  .checkmark {
+    float: right
   }
 
   .send-row {
-    height: 20%;
+    height: 15%;
     width: 100%;
     bottom: 0;
     position: absolute;
   }
 
   .chosen-friends {
-    top: 10%;
+    top: 0.5em;
     float: left;
     position: relative;
-    width: 3em;
-    height: 3em;
-    padding-left: 1%;
+    width: 2em;
+    height: 2em;
+    padding-left: .2em;
   }
 
   .chosen-friend-pic {
-    height: 3em;
-    width: 3em;
+    height: 2em;
+    width: 2em;
     border-radius: 50%;
   }
 
@@ -320,17 +325,17 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     position: relative;
     background-color: rgb(63,154,214);
     border-radius: 50%;
-    height: 3em;
-    width: 3em;
+    height: 2em;
+    width: 2em;
     right: 2%;
-    top: 10%;
+    top: 0.5em;
     float: right;
   }
 
   .send-symbol{
-    font-size: 2em;
-    padding-left: 0.2em;
-    padding-top: 0.3em;
+    font-size: 1.5em;
+    padding-left: 0.1em;
+    padding-top: 0.2em;
     z-index: 1000;
   }
 

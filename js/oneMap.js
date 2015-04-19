@@ -56,13 +56,16 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     populateAddress();
   }
 
-  $scope.toggleSendee = function(friend) {
-    console.log($scope.chosenFriends);
+  $scope.isChosen = function(friend) {
+    return $scope.chosenFriends.indexOf(friend) !== -1;
+  }
+
+  $scope.toggleSendee = function(friend, $event) {
     var index = $scope.chosenFriends.indexOf(friend);
-    if (index === -1) {
-      $scope.chosenFriends.push(friend);
-    } else {
+    if (index !== -1) {
       $scope.chosenFriends.splice(index,1);
+    } else {
+      $scope.chosenFriends.push(friend);
     }
   }
 
