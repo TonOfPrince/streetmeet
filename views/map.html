@@ -28,10 +28,11 @@
     </div>
 
     <div class="send-section">
-      <input id="friend-input" type="text" placeholder="Search for friends" class="controls">
+      <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
+      <!-- <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter"> -->
       <!-- <div class="friendList"> -->
       <div class="friend-list">
-        <div ng-repeat="friend in mockFriends" class="friend">
+        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend">
           <img class="friend-pic" src={{friend.image}}>
           <span class="friend-name">{{friend.name}}</span>
         </div>
