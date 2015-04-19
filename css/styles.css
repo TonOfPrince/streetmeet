@@ -253,7 +253,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
     .currentLoc-symbol {
       font-size: 2em;
-      padding-left: 0.33em;
+      text-align: center;
       padding-top: 0.1em;
     }
 

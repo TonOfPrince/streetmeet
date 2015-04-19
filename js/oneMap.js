@@ -30,7 +30,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
         var streetReverseAddress = results[0].address_components[1].short_name;
         $scope.shortReverseAddress = numberReverseAddress + ' ' + streetReverseAddress;
         $scope.fullReverseAddress = results[0].formatted_address;
-        $localStorage.addressBox = $scope.reverseAddress;
         $scope.$apply();
       } else {
         alert("Geocoder failed due to: " + status);
@@ -120,18 +119,11 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       } else {
         map.setCenter(place.geometry.location);
       }
-
-      var address = '';
-      if (place.address_components) {
-        address = [
-          (place.address_components[0] && place.address_components[0].short_name || ''),
-          (place.address_components[1] && place.address_components[1].short_name || ''),
-          (place.address_components[2] && place.address_components[2].short_name || '')
-        ].join(' ');
-      }
-
       populateAddress();
-      $localStorage.addressBox = address;
+    });
+
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      populateAddress();
     });
     populateAddress();
     geocode();
