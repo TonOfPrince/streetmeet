@@ -78,13 +78,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     }
   }
 
-  $scope.openSendInfo = function() {
-    var sendInfo = $(".hTabs")
-    var pageHeight = parseFloat($("#map-page").height());
-    var maxSendInfoHeight = pageHeight/2
-    sendInfo.height(maxSendInfoHeight+"px");
-  }
-
   $scope.closeSendInfo = function() {
     var sendInfo = $(".hTabs")
     sendInfo.height(4+"em");
@@ -113,6 +106,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var centerMarker = angular.element('<div/>').addClass('centerMarker')
     angular.element(map.getDiv()).append(centerMarker);
     centerMarker.on('click', populateAddress);
+    centerMarker.on('click', $scope.openSendInfo);
     // location input bar with autocomplete
     var input = /** @type {HTMLInputElement} */(
         document.getElementById('pac-input'));
@@ -254,7 +248,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   var drawMap = function(location) {
     // var userloc = $cookieStore.get('userloc');
     var userloc = $localStorage.userloc;
-    console.log(userloc);
     var latitude = userloc.coords.latitude;
     var longitude = userloc.coords.longitude;
     var center = new google.maps.LatLng(latitude, longitude)
@@ -333,7 +326,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
   // updates user's location on the map when user moves
   var showLocation = function(position) {
-    console.log(position);
     var latitude = position.coords.latitude;
     var longitude = position.coords.longitude;
     var myLatlng = new google.maps.LatLng(latitude, longitude);

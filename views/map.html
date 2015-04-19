@@ -1,8 +1,6 @@
 <div id="map-page">
 
-
-
-  <div scroll="false" class="map" ng-click="closeSendInfo()">
+  <div scroll="false" class="map" >
     <div id="map-canvas" data-tap-disabled="true"></div>
     <div class="currentLoc-btn" ng-click="centerOnCurrentLoc()">
       <div class="currentLoc-symbol">
@@ -17,10 +15,9 @@
     <i class="fa fa-times times" ng-click="clearAddress()"></i>
   </div>
 
-  <!-- <div class="hTabs" draggable> -->
-  <div class="hTabs">
+  <div class="hTabs" draggable>
     <div class="send-section">
-      <div class = "search-bar" ng-click="openSendInfo()">
+      <div class = "search-bar">
         <i class="fa fa-search search"></i>
         <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
         <i class="fa fa-times times" ng-click="clearFriendFilter()"></i>
@@ -30,7 +27,6 @@
         <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
           <div class="friend-pic-wrapper">
           <img class="friend-pic" src={{friend.image}}>
-          <!-- <img class="friend-pic"> -->
           </div>
           <span class="friend-name">
             {{friend.name}}
