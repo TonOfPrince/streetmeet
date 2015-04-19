@@ -58,7 +58,12 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
   $scope.toggleSendee = function(friend) {
     console.log($scope.chosenFriends);
-    $scope.chosenFriends.push(friend);
+    var index = $scope.chosenFriends.indexOf(friend);
+    if (index === -1) {
+      $scope.chosenFriends.push(friend);
+    } else {
+      $scope.chosenFriends.splice(index,1);
+    }
   }
 
   var init = function() {
