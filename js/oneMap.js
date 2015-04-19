@@ -53,7 +53,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var longitude = location.coords.longitude;
     var pos = new google.maps.LatLng(latitude, longitude);
     // center on user loc
-    map.setCenter(pos);
+    // map.setCenter(pos);
+    map.panTo(pos);
     populateAddress();
   }
 
@@ -259,7 +260,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var mapOptions = {
       zoom: 14,
       center: center,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var center = new google.maps.LatLng(latitude, longitude);

@@ -395,9 +395,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   width: 100%;
 }
 
-.gmnoprint {
+/*.gmnoprint {
   display: none;
-}
+}*/
 
 #map-canvas .centerMarker{
   position: absolute;
