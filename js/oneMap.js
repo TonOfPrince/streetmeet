@@ -26,8 +26,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'latLng': map.getCenter()}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
-        $scope.numberReverseAddress = results[0].address_components[0].short_name;
-        $scope.streetReverseAddress = results[0].address_components[1].short_name;
+        var numberReverseAddress = results[0].address_components[0].short_name;
+        var streetReverseAddress = results[0].address_components[1].short_name;
+        $scope.shortReverseAddress = numberReverseAddress + ' ' + streetReverseAddress;
         $scope.fullReverseAddress = results[0].formatted_address;
         $cookieStore.put("addressBox", $scope.reverseAddress)
         $scope.$apply();
@@ -109,7 +110,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
         map.fitBounds(place.geometry.viewport);
       } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(17);  // Why 17? Because it looks good.
       }
 
       var address = '';

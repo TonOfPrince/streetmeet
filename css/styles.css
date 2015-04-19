@@ -219,7 +219,6 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
       height: 3em;
       width: 3em;
       right: 2%;
-      /*z-index: 5;*/
     }
 
     .currentLoc-symbol {

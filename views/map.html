@@ -1,6 +1,6 @@
 <div id="map-page">
 
-  <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="fullReverseAddress">
+  <input id="pac-input" class="controls" type="text" placeholder="Enter a location" ng-model="shortReverseAddress">
 
   <div scroll="false" class="map">
     <div id="map-canvas" data-tap-disabled="true"></div>
@@ -19,7 +19,8 @@
           <div class="friend-pic-wrapper">
           <img class="friend-pic" src={{friend.image}}>
           </div>
-          <span class="friend-name">{{friend.name}}
+          <span class="friend-name">
+            {{friend.name}}
             <i class="fa fa-check checkmark" ng-show="isChosen(friend)"></i>
           </span>
           <div class="separation">
