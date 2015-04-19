@@ -16,7 +16,9 @@
       <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
       <div class="friend-list">
         <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
+          <div class="friend-pic-wrapper">
           <img class="friend-pic" src={{friend.image}}>
+          </div>
           <span class="friend-name">{{friend.name}}
             <i class="fa fa-check checkmark" ng-show="isChosen(friend)"></i>
           </span>
@@ -25,6 +27,7 @@
       <!-- </div> -->
       <div class="send-row">
         <div class="chosen-friends" ng-repeat="friend in chosenFriends">
+          <i class="fa fa-check send-checkmark"></i>
           <img class="chosen-friend-pic" src={{friend.image}}>
         </div>
         <div class="send-btn">
