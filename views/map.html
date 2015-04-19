@@ -17,13 +17,16 @@
     <div class="send-section">
       <input id="friend-input" type="text" placeholder="Search for friends" class="controls" ng-model="friendFilter">
       <div class="friend-list">
-        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee()">
+        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend)">
           <img class="friend-pic" src={{friend.image}}>
           <span class="friend-name">{{friend.name}}</span>
         </div>
       </div>
       <!-- </div> -->
       <div class="send-row">
+        <div class="chosen-friends" ng-repeat="friend in chosenFriends">
+          <img class="chosen-friend-pic" src={{friend.image}}>
+        </div>
         <div class="send-btn">
           <div class="send-symbol">
             <a>

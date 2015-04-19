@@ -301,15 +301,30 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     position: absolute;
   }
 
+  .chosen-friends {
+    top: 10%;
+    float: left;
+    position: relative;
+    width: 3em;
+    height: 3em;
+    padding-left: 1%;
+  }
+
+  .chosen-friend-pic {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+  }
+
   .send-btn {
-    position: absolute;
+    position: relative;
     background-color: rgb(63,154,214);
     border-radius: 50%;
     height: 3em;
     width: 3em;
     right: 2%;
-    /*margin-top: 1%;*/
-    bottom: 1%;
+    top: 10%;
+    float: right;
   }
 
   .send-symbol{
