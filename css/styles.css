@@ -21,6 +21,12 @@ html, body{
   background: #e6e6e6;
 }
 
+.wrapper{
+  /*max-width: 600px;*/
+  width: 100%;
+  height: 100%;
+}
+
 /********** Text styles **********/
 body {
   font-size: 16px; /*Set the base font*/
@@ -132,16 +138,18 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   width: 100%;
 }
 
+.title {
+  font-family: 'Savoye LET';
+  color: #fff;
+  font-size: 5em;
+  padding-top: 20%;
+}
 #main-logo{
   width: 100%;
   max-width: 500px;
   margin: 0 auto 10%;
   height: 35%;
   text-align: center;
-/*  background-position: center center;*/
-/*  background-repeat: no-repeat;*/
-/*  background-size: 80%;*/
-/*  background-image: url(../img/logo_verge22.png);*/
 }
 
   #main-logo img{
@@ -190,13 +198,16 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
   .short-address-section {
     height: 20%;
+    width: 100%;
+    position: absolute;
   }
 
     .short-address {
       font-size: 1.25em;
       font-weight: 600;
-      padding-left: 2%;
-      padding-top: 1em;
+      left: 2%;
+      top: 1em;
+      position: absolute;
     }
 
     .currentLoc-btn {
@@ -224,6 +235,9 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
 .long-address-section {
   height: 9.5%;
+  position: absolute;
+  top: 20%;
+  width: 100%;
 }
 
   .long-address {
@@ -233,6 +247,8 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
 
 .separation {
   height:1%;
+  position: absolute;
+  top: 29.5%;
 }
   hr {
     margin: 0;
@@ -240,13 +256,48 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
   }
 
 .send-section {
-  /*top: 25.5%;*/
+  top: 25.5%;
   height: 74.5%;
-  /*position: absolute;*/
+  width: 100%;
+  position: absolute;
 }
 
   #friend-input {
     height: 10%;
+    position: absolute;
+    width: 100%
+  }
+
+  .friend-list {
+    height: 65%;
+    width: 100%;
+    top:10%;
+    position: absolute;
+    overflow: auto;
+  }
+
+  .friend {
+    position: relative;
+    width: 100%;
+  }
+
+  .friend-pic {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+  }
+
+  .friend-name {
+    top: 1em;
+    position: absolute;
+    padding-left: 1%
+  }
+
+  .send-row {
+    height: 25%;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
   }
 
   .send-btn {

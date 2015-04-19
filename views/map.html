@@ -29,11 +29,21 @@
 
     <div class="send-section">
       <input id="friend-input" type="text" placeholder="Search for friends" class="controls">
-      <div class="send-btn">
-        <div class="send-symbol">
-          <a>
-            <i class="fa fa-paper-plane"></i>
-          </a>
+      <!-- <div class="friendList"> -->
+      <div class="friend-list">
+        <div ng-repeat="friend in mockFriends" class="friend">
+          <img class="friend-pic" src={{friend.image}}>
+          <span class="friend-name">{{friend.name}}</span>
+        </div>
+      </div>
+      <!-- </div> -->
+      <div class="send-row">
+        <div class="send-btn">
+          <div class="send-symbol">
+            <a>
+              <i class="fa fa-paper-plane"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>

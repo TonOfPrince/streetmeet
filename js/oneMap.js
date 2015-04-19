@@ -7,6 +7,19 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
   var map;
 
+  $scope.mockFriends = [
+    {name:'Brett Leibowitz', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Julia Hawkins', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Bob Burger', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Tony Tiger', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Bill Nye', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Thomas Train', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Tina Turner', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'John Lennon', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Taylor Hampshire', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
+    {name:'Peach Springs', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'}
+  ];
+
   var populateAddress = function() {
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({'latLng': map.getCenter()}, function(results, status) {
