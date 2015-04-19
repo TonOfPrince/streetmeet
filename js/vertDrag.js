@@ -1,8 +1,9 @@
 angular.module('sm-meetApp.vertDrag', []).
 directive('draggable', function($document) {
   return function(scope, element, attr) {
-    var startY = 0, y = 0, offsetHeight = element[0].offsetHeight;
-    console.log(offsetHeight);
+    var startY = 0, y = 0, offsetHeight = element[0].offsetHeight,
+        maxHeight = offsetHeight + element[0].offsetTop;
+    console.log(element);
     element.css({
      // position: 'relative',
     });
@@ -20,7 +21,14 @@ directive('draggable', function($document) {
 
     function touchmove(event) {
       y = event.touches[0].screenY - startY;
-      if (y > 0) {
+      console.log(y);
+      if (y < maxHeight*(-1)) {
+        y  = maxHeight*(-1);
+        element.css({
+          height: maxHeight + 'px'
+        });
+      } else if (y > 0) {
+        y = 0;
         element.css({
           height: offsetHeight + 'px'
         });
