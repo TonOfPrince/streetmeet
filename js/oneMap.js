@@ -262,7 +262,16 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
       zoom: 14,
       center: center,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      styles: [
+        {
+          featureType: "poi",
+          elementType: "labels",
+          stylers: [
+            {visibility: "off"}
+          ]
+        }
+      ]
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var center = new google.maps.LatLng(latitude, longitude);
