@@ -14,8 +14,8 @@ var  _ = require('underscore');
 // app.use(methodOverride());      // simulate DELETE and PUT
 app.use(cors());
 
-// var ip = "127.0.0.1";
-var ip = "192.168.0.5";
+var ip = "127.0.0.1";
+// var ip = "192.168.0.5";
 var port = process.env.PORT || 3000;
 app.use(express.static(__dirname));
 

@@ -83,6 +83,41 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     sendInfo.height(4+"em");
   }
 
+  // function HomeControl(controlDiv, map) {
+
+  //   // Set CSS styles for the DIV containing the control
+  //   // Setting padding to 5 px will offset the control
+  //   // from the edge of the map.
+  //   // controlDiv.style.padding = '5px';
+
+  //   // Set CSS for the control border.
+  //   var controlDiv = document.createElement('div');
+  //   console.log(controlDiv);
+  //   controlDiv.style.backgroundColor = 'rgb(63,154,214)';
+  //   controlDiv.style.borderRadius = 'solid';
+  //   controlDiv.style.top = '2.5em';
+  //   controlDiv.style.height = '3em';
+  //   controlDiv.style.width = '3em';
+  //   controlDiv.style.right = '0.5em';
+  //   // controlUI.title = 'Click to set the map to Home';
+
+  //   // Set CSS for the control interior.
+  //   var controlText = document.createElement('i');
+  //   controlText.style.paddingTop = '0.1em';
+  //   controlText.style.fontSize = '2em';
+  //   controlText.style.textAlign = 'center';
+  //   controlText.addClass('fa');
+  //   controlText.addClass('fa-dot-circle-o');
+  //   // controlText.style.paddingRight = '4px';
+  //   // controlText.innerHTML = '<strong>Home</strong>';
+  //   controlUI.appendChild(controlText);
+
+  //   // Setup the click event listeners: simply set the map to Chicago.
+  //   google.maps.event.addDomListener(controlUI, 'click', function() {
+  //     map.setCenter(chicago)
+  //   });
+  // }
+
   var init = function() {
     // OneMap.deleteMarkers();
     var currentUser = $localStorage.currentUser;
@@ -107,6 +142,17 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     angular.element(map.getDiv()).append(centerMarker);
     centerMarker.on('click', populateAddress);
     centerMarker.on('click', $scope.openSendInfo);
+    // centerMarker.attr('draggable', '');
+
+    // var homeControlDiv = document.createElement('div');
+    //   var homeControl = new HomeControl(homeControlDiv, map);
+
+    //   homeControlDiv.index = 1;
+    //   map.controls[google.maps.ControlPosition.LEFT_CENTER].push(homeControlDiv);
+
+    // angular.element(map.getDiv()).append(controlDiv);
+
+
     // location input bar with autocomplete
     var input = /** @type {HTMLInputElement} */(
         document.getElementById('pac-input'));
