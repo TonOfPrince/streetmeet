@@ -89,7 +89,6 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
       // });
       // auth.$authWithOAuthRedirect("facebook",
       auth.$authWithOAuthPopup("facebook",
-        // {scope: "email, user_events, user_friends" }); // scope has the permissions requested
         {scope: "email, user_friends" }) // scope has the permissions requested
       .then(function(authData) {
         var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
@@ -110,15 +109,22 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
         $scope.currentUserId = authData;
         $state.transitionTo('map');
         var authToken = authData.facebook.accessToken;
+
+        // access friends from facebook
         FB.api('/me/friends', {
           'access_token': authToken
         }, function(response) {
             if (!response || response.error) {
                 console.log(response.error);
             } else {
-               console.log(response);
+              // save friends to firebase
+              var friendRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/friends");
+              friendRef.set(response.data);
             }
         });
+
+
+
       }).catch(function(error) {
         console.error("Authentication failed:", error);
       });
