@@ -13,6 +13,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
     var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/");
     var auth = $firebaseAuth(ref);
 
+    // for graph api to work
     $window.fbAsyncInit = function() {
         // Executed when the SDK is loaded
 

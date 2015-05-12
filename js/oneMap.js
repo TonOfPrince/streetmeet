@@ -7,18 +7,22 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
 
   var map;
 
-  $scope.mockFriends = [
-    {name:'Brett Leibowitz', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Julia Hawkins', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Bob Burger', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Tony Tiger', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Bill Nye', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Thomas Train', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Tina Turner', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'John Lennon', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Taylor Hampshire', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'},
-    {name:'Peach Springs', image:'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xta1/v/t1.0-1/p100x100/10577098_10202442901536904_4921330914277947787_n.jpg?oh=99d1a0849ec523b1d97c701669d9def0&oe=55A2B938&__gda__=1437312839_707288d58ce04e7703e83879be6bd55c'}
-  ];
+  $scope.mockFriends = function() {
+    var friendRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/friends");
+    var friendObj = $firebaseObject(friendRef);
+    var result = [];
+    // user's current event
+    friendObj.$loaded().then(function() {
+      angular.forEach(friendObj, function(value, key) {
+        var picRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/facebook:" + value.id +"/userInfo/picture/data/url");
+        var picObj = $firebaseObject(picRef);
+        picObj.$loaded().then(function() {
+          result.push({name: value.name, image: picObj.$value});
+        });
+      });
+    });
+    return result;
+  }();
 
   $scope.chosenFriends = [];
 
@@ -83,41 +87,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     sendInfo.height(4+"em");
   }
 
-  // function HomeControl(controlDiv, map) {
-
-  //   // Set CSS styles for the DIV containing the control
-  //   // Setting padding to 5 px will offset the control
-  //   // from the edge of the map.
-  //   // controlDiv.style.padding = '5px';
-
-  //   // Set CSS for the control border.
-  //   var controlDiv = document.createElement('div');
-  //   console.log(controlDiv);
-  //   controlDiv.style.backgroundColor = 'rgb(63,154,214)';
-  //   controlDiv.style.borderRadius = 'solid';
-  //   controlDiv.style.top = '2.5em';
-  //   controlDiv.style.height = '3em';
-  //   controlDiv.style.width = '3em';
-  //   controlDiv.style.right = '0.5em';
-  //   // controlUI.title = 'Click to set the map to Home';
-
-  //   // Set CSS for the control interior.
-  //   var controlText = document.createElement('i');
-  //   controlText.style.paddingTop = '0.1em';
-  //   controlText.style.fontSize = '2em';
-  //   controlText.style.textAlign = 'center';
-  //   controlText.addClass('fa');
-  //   controlText.addClass('fa-dot-circle-o');
-  //   // controlText.style.paddingRight = '4px';
-  //   // controlText.innerHTML = '<strong>Home</strong>';
-  //   controlUI.appendChild(controlText);
-
-  //   // Setup the click event listeners: simply set the map to Chicago.
-  //   google.maps.event.addDomListener(controlUI, 'click', function() {
-  //     map.setCenter(chicago)
-  //   });
-  // }
-
   var init = function() {
     // OneMap.deleteMarkers();
     var currentUser = $localStorage.currentUser;
@@ -142,16 +111,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     angular.element(map.getDiv()).append(centerMarker);
     centerMarker.on('click', populateAddress);
     centerMarker.on('click', $scope.openSendInfo);
-    // centerMarker.attr('draggable', '');
-
-    // var homeControlDiv = document.createElement('div');
-    //   var homeControl = new HomeControl(homeControlDiv, map);
-
-    //   homeControlDiv.index = 1;
-    //   map.controls[google.maps.ControlPosition.LEFT_CENTER].push(homeControlDiv);
-
-    // angular.element(map.getDiv()).append(controlDiv);
-
 
     // location input bar with autocomplete
     var input = /** @type {HTMLInputElement} */(
