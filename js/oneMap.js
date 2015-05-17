@@ -1,6 +1,6 @@
-angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
+angular.module('sm-meetApp.oneMap',  ['firebase'])
 
-.controller('OneMapCtrl', function($scope, $firebaseObject, OneMap, $cookieStore, $localStorage, $state, $q, Login) {
+.controller('OneMapCtrl', function($scope, $firebaseObject, OneMap, $localStorage, $state, $q, Login) {
 
   angular.extend($scope, OneMap);
   OneMap.initialize();
@@ -55,8 +55,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var latitude = location.coords.latitude;
     var longitude = location.coords.longitude;
     var pos = new google.maps.LatLng(latitude, longitude);
-    // center on user loc
-    // map.setCenter(pos);
+    // pan and center on user loc
     map.panTo(pos);
     populateAddress();
   }
@@ -143,7 +142,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   }();
 })
 
-.factory('OneMap', function ($q, $location, $window, $rootScope, $cookieStore, $localStorage, $state, $firebaseObject) {
+.factory('OneMap', function ($q, $location, $window, $rootScope, $localStorage, $state, $firebaseObject) {
   // user location geofire
   var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/user_locations");
   var userGeoFire = new GeoFire(userRef);
@@ -224,7 +223,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
             if (key !== currentUser) {
               var userLocRef = new Firebase("https://boiling-torch-2747.firebaseio.com/user_locations/"+key+"/l");
               var userLocObject = $firebaseObject(userLocRef);
-              // var userLocObject = userLocSync.$asObject();
               // attendee's location
               userLocObject.$loaded().then(function() {
                 var pos = new google.maps.LatLng(userLocObject[0], userLocObject[1]);
@@ -251,7 +249,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
   /* Callback method from the geolocation API which receives the current user's location */
   // draws the map on the canvas centered at the user's location
   var drawMap = function(location) {
-    // var userloc = $cookieStore.get('userloc');
     var userloc = $localStorage.userloc;
     var latitude = userloc.coords.latitude;
     var longitude = userloc.coords.longitude;
@@ -312,7 +309,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     } else if (error.code === 3) {
       console.error("Error: TIMEOUT: Calculating the user's location too took long");
       geolocationCallbackQuery($localStorage.userloc);
-      // geolocationCallbackQuery($cookieStore.get('userloc'));
     } else {
       console.error("Unexpected error code")
     }
@@ -336,12 +332,12 @@ angular.module('sm-meetApp.oneMap',  ['firebase', 'ngCookies'])
     var myLatlng = new google.maps.LatLng(latitude, longitude);
     globalLatLng = myLatlng;
     var userData = $localStorage.currentUser;
+    $localStorage.userloc = position;
     //adds user location data to firebase
     userGeoFire.set(userData, [latitude, longitude]).then(function() {
     }, function(error) {
       console.error("Error: " + error);
     });
-
     //updates marker position by removing the old one and adding the new one
     if (marker == null) {
       marker = new google.maps.Marker({

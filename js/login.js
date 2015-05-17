@@ -1,9 +1,9 @@
-angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
+angular.module('sm-meetApp.login',  ['firebase', 'ngStorage'])
 
 
 
-.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$cookieStore", "$state", "$q", "Login", "$localStorage", "$window",
-  function($scope, $firebaseAuth, $cookieStore, $state, $q, Login, $localStorage, $window) {
+.controller('LoginCtrl', ["$scope",  "$firebaseAuth", "$state", "$q", "Login", "$localStorage", "$window",
+  function($scope, $firebaseAuth, $state, $q, Login, $localStorage, $window) {
     $scope.currentUser =  $localStorage.currentData || null;
     $scope.currentUserId =  $localStorage.currentUser || null;
     $scope.theEvents;
@@ -131,17 +131,13 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngCookies', 'ngStorage'])
       });
     };
 
-    $scope.logout = function(){
-      auth.$unauth();
-      $cookieStore.remove('currentData')
-      $cookieStore.remove('currentUser')
-      $cookieStore.remove('currentToken');
-    }
+    // $scope.logout = function(){
+    //   auth.$unauth();
+    // }
 
 }])
 
-.factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $localStorage) {
-// .factory('Login', function ($q, $location, $window, $rootScope, $cookieStore, $state, $firebase) {
+.factory('Login', function ($q, $location, $window, $rootScope, $state, $localStorage) {
   var getLocation = function() {
     // Web page
     if (typeof navigator !== "undefined" && typeof navigator.geolocation !== "undefined") {
