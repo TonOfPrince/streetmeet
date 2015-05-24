@@ -36,6 +36,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
       obj[value.id] = false;
     });
     ref.set(obj);
+    var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
+    userRef.set(newKey);
     $scope.chosenFriends = [];
   }
 
