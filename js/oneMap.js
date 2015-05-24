@@ -30,13 +30,16 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
       var streetMeetsRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/");
       var streetMeetRef = streetMeetsRef.push();
       var newKey = streetMeetRef.key();
-      var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey)
+      var attendeesRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey+"/attendees")
       var obj = {};
       obj[$localStorage.currentUser.split(':')[1]] = true;
       angular.forEach($scope.chosenFriends, function(value, key) {
         obj[value.id] = false;
       });
-      ref.set(obj);
+      attendeesRef.set(obj);
+      var eventLocation = map.getCenter();
+      var geoFire = new GeoFire(streetMeetRef);
+      geoFire.set('location', [eventLocation.lat() , eventLocation.lng()]);
       var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
       userRef.set(newKey);
       $scope.chosenFriends = [];
