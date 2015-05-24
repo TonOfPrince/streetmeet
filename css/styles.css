@@ -300,9 +300,17 @@ input[type="text"], input[type="email"], input[type="password"], input[type="num
     width: 80%
   }
 
+  .friend-title {
+    overflow: auto;
+    bottom: 1.5em;
+    top: 1.5em;
+    position: absolute;
+    padding-left: 5px;
+  }
+
   .friend-list {
     width: 100%;
-    top: 2em;
+    top: 5em;
     bottom: 2.5em;
     position: absolute;
     overflow: auto;

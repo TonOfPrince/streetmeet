@@ -23,6 +23,7 @@
         <i class="fa fa-times times" ng-click="clearFriendFilter()"></i>
 
       </div>
+      <h3 class="friend-title">Invite</h3>
       <div class="friend-list">
         <div ng-repeat="friend in listFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
           <div class="friend-pic-wrapper">

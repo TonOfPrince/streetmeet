@@ -25,20 +25,22 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
   }();
 
   $scope.sendStreetmeet = function() {
-    $('.centerMarker').hide();
-    var streetMeetsRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/");
-    var streetMeetRef = streetMeetsRef.push();
-    var newKey = streetMeetRef.key();
-    var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey)
-    var obj = {};
-    obj[$localStorage.currentUser.split(':')[1]] = true;
-    angular.forEach($scope.chosenFriends, function(value, key) {
-      obj[value.id] = false;
-    });
-    ref.set(obj);
-    var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
-    userRef.set(newKey);
-    $scope.chosenFriends = [];
+    if ($scope.chosenFriends.length) {
+      $('.centerMarker').hide();
+      var streetMeetsRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/");
+      var streetMeetRef = streetMeetsRef.push();
+      var newKey = streetMeetRef.key();
+      var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey)
+      var obj = {};
+      obj[$localStorage.currentUser.split(':')[1]] = true;
+      angular.forEach($scope.chosenFriends, function(value, key) {
+        obj[value.id] = false;
+      });
+      ref.set(obj);
+      var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
+      userRef.set(newKey);
+      $scope.chosenFriends = [];
+    }
   }
 
   $scope.chosenFriends = [];
