@@ -92,7 +92,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngStorage'])
       auth.$authWithOAuthPopup("facebook",
         {scope: "email, user_friends" }) // scope has the permissions requested
       .then(function(authData) {
-        var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/userInfo");
+        var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid.split(":")[1]+"/userInfo");
         ref.set(authData.facebook.cachedUserProfile, function(error) {
           if (error) {
             console.error('error setting data!');
@@ -103,7 +103,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngStorage'])
             console.error('error setting display name!');
           }
         })
-        $localStorage.currentUser = authData.uid;
+        $localStorage.currentUser = authData.uid.split(":")[1];
         $localStorage.currentToken = authData.token;
         $localStorage.currentData = authData.facebook.cachedUserProfile;
         $scope.currentUser = authData.facebook.cachedUserProfile;
@@ -119,7 +119,7 @@ angular.module('sm-meetApp.login',  ['firebase', 'ngStorage'])
                 console.log(response.error);
             } else {
               // save friends to firebase
-              var friendRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid+"/friends");
+              var friendRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+authData.uid.split(":")[1]+"/friends");
               friendRef.set(response.data);
             }
         });

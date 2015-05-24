@@ -14,7 +14,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     // user's current event
     friendObj.$loaded().then(function() {
       angular.forEach(friendObj, function(value, key) {
-        var picRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/facebook:" + value.id +"/userInfo/picture/data/url");
+        var picRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/" + value.id +"/userInfo/picture/data/url");
         var picObj = $firebaseObject(picRef);
         picObj.$loaded().then(function() {
           result.push({name: value.name, image: picObj.$value, id: value.id});
@@ -32,7 +32,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
       var newKey = streetMeetRef.key();
       var attendeesRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey+"/attendees")
       var obj = {};
-      obj[$localStorage.currentUser.split(':')[1]] = true;
+      obj[$localStorage.currentUser] = true;
       angular.forEach($scope.chosenFriends, function(value, key) {
         obj[value.id] = false;
       });
@@ -43,6 +43,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
       var userRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
       userRef.set(newKey);
       $scope.chosenFriends = [];
+      OneMap.loadStreetmeet();
     }
   }
 
@@ -208,6 +209,54 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     drawMap();
   }
 
+  var loadStreetmeet = function() {
+    var currentMeetRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentMeet");
+    var currentMeetObj = $firebaseObject(currentMeetRef);
+    // user's current streetmeet
+    currentMeetObj.$loaded().then(function() {
+      var currentMeetLocRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+currentMeetObj.$value);
+      var currentMeetGeoFire = new GeoFire(currentMeetLocRef);
+      currentMeetGeoFire.get('location').then(function(location) {
+
+        var pos = new google.maps.LatLng(location[0], location[1]);
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          draggable: false,
+          title: currentMeetObj.$value,
+          icon: '/img/icon_map_join_blue.png',
+        });
+        markers.push(marker);
+
+        // google.maps.event.addListener(marker, 'click', function() {
+        //   $state.transitionTo('attendEvent', {id: currEventObj.$value});
+        // });
+        var attendeesObj = $firebaseObject(currentMeetLocRef.child('attendees'));
+        // user's current streetmeet attendees
+        currentMeetObj.$loaded().then(function(attendees) {
+          angular.forEach(currentMeetObj, function(value, key) {
+            // if the attendee is in streetmeet then plot and trace location
+            if (key !== $localStorage.currentUser && value) {
+                var pos = new google.maps.LatLng(userLocObject[0], userLocObject[1]);
+                var marker = new google.maps.Marker({
+                  position: pos,
+                  map: map,
+                  icon: '/img/icon_user_pos_animated.gif',
+                  draggable: false,
+                  title: key,
+                  optimized : false
+                });
+                markers.push(marker);
+                // google.maps.event.addListener(marker, 'click', function() {
+                //   $state.transitionTo('userProfile', {id: key});
+                // });
+            }
+          });
+        });
+      });
+    });
+  }
+
   // show attendees converging to an event on the screen
   var vergingDisplay = function() {
     var currentUser = $localStorage.currentUser;
@@ -228,9 +277,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
           icon: '/img/icon_map_event_blue.png',
         });
         markers.push(marker);
-        google.maps.event.addListener(marker, 'click', function() {
-          $state.transitionTo('attendEvent', {id: currEventObj.$value});
-        });
+        // google.maps.event.addListener(marker, 'click', function() {
+        //   $state.transitionTo('attendEvent', {id: currEventObj.$value});
+        // });
         var attendeeRef = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+currEventObj.$value+"/attendees");
         var attendeeObj = $firebaseObject(attendeeRef);
         // attendees of user's current event
@@ -251,9 +300,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
                   optimized : false
                 });
                 markers.push(marker);
-                google.maps.event.addListener(marker, 'click', function() {
-                  $state.transitionTo('userProfile', {id: key});
-                });
+                // google.maps.event.addListener(marker, 'click', function() {
+                //   $state.transitionTo('userProfile', {id: key});
+                // });
               });
             }
           });
@@ -300,9 +349,9 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
       title: $localStorage.currentUser
     });
     bounds.extend(center);
-    google.maps.event.addListener(marker, 'click', function() {
-      $state.transitionTo('userProfile', {id: marker.title});
-    });
+    // google.maps.event.addListener(marker, 'click', function() {
+    //   $state.transitionTo('userProfile', {id: marker.title});
+    // });
     geolocationUpdate();
     // LOGIC HERE DETERMINING IF IN EVENT OR NOT
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentEvent");
@@ -386,7 +435,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
 
   var eventStatus = function() {
     var currentUser = $localStorage.currentUser;
-    var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
+    var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentMeet");
     var currEventObj = $firebaseObject(currEventRef);
     // user's current event
     return currEventObj.$loaded().then(function() {
@@ -407,7 +456,8 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     vergingDisplay: vergingDisplay,
     eventStatus: eventStatus,
     showMarkers: showMarkers,
-    deleteMarkers: deleteMarkers
+    deleteMarkers: deleteMarkers,
+    loadStreetmeet: loadStreetmeet
   }
 
 });
