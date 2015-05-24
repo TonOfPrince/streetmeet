@@ -7,7 +7,7 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
 
   var map;
 
-  $scope.mockFriends = function() {
+  $scope.listFriends = function() {
     var friendRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/friends");
     var friendObj = $firebaseObject(friendRef);
     var result = [];
@@ -17,12 +17,27 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
         var picRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/facebook:" + value.id +"/userInfo/picture/data/url");
         var picObj = $firebaseObject(picRef);
         picObj.$loaded().then(function() {
-          result.push({name: value.name, image: picObj.$value});
+          result.push({name: value.name, image: picObj.$value, id: value.id});
         });
       });
     });
     return result;
   }();
+
+  $scope.sendStreetmeet = function() {
+    $('.centerMarker').hide();
+    var streetMeetsRef = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/");
+    var streetMeetRef = streetMeetsRef.push();
+    var newKey = streetMeetRef.key();
+    var ref = new Firebase("https://boiling-torch-2747.firebaseio.com/streetmeets/"+newKey)
+    var obj = {};
+    obj[$localStorage.currentUser.split(':')[1]] = true;
+    angular.forEach($scope.chosenFriends, function(value, key) {
+      obj[value.id] = false;
+    });
+    ref.set(obj);
+    $scope.chosenFriends = [];
+  }
 
   $scope.chosenFriends = [];
 
@@ -82,16 +97,13 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
   }
 
   $scope.closeSendInfo = function() {
-    var sendInfo = $(".hTabs")
+    var sendInfo = $(".friend-section")
     sendInfo.height(4+"em");
   }
 
   var init = function() {
-    // OneMap.deleteMarkers();
     var currentUser = $localStorage.currentUser;
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
-    // var eventSync = $firebase(currEventRef);
-    // var currEventObj = eventSync.$asObject();
     var currEventObj = $firebaseObject(currEventRef);
     // user's current event
     currEventObj.$loaded().then(function() {
@@ -194,12 +206,10 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     var currentUser = $localStorage.currentUser;
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
     var currEventObj = $firebaseObject(currEventRef);
-    // var currEventObj = eventSync.$asObject();
     // user's current event
     currEventObj.$loaded().then(function() {
       var eventLocRef = new Firebase("https://boiling-torch-2747.firebaseio.com/archived/locations/"+currEventObj.$value+"/l")
       var eventLocObj = $firebaseObject(eventLocRef);
-      // var eventLocObj = eventLocSync.$asObject();
       // user's current event location
       eventLocObj.$loaded().then(function() {
         var pos = new google.maps.LatLng(eventLocObj[0], eventLocObj[1]);
@@ -216,7 +226,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
         });
         var attendeeRef = new Firebase("https://boiling-torch-2747.firebaseio.com/events/"+currEventObj.$value+"/attendees");
         var attendeeObj = $firebaseObject(attendeeRef);
-        // var attendeeObj = attendeeSync.$asObject();
         // attendees of user's current event
         attendeeObj.$loaded().then(function() {
           angular.forEach(attendeeObj, function(value, key) {
@@ -291,7 +300,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     // LOGIC HERE DETERMINING IF IN EVENT OR NOT
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+$localStorage.currentUser+"/currentEvent");
     var currEventObj = $firebaseObject(currEventRef);
-    // var currEventObj = eventSync.$asObject();
     currEventObj.$loaded().then(function() {
       if (currEventObj.$value) {
         vergingDisplay();
@@ -373,7 +381,6 @@ angular.module('sm-meetApp.oneMap',  ['firebase'])
     var currentUser = $localStorage.currentUser;
     var currEventRef = new Firebase("https://boiling-torch-2747.firebaseio.com/users/"+currentUser+"/currentEvent");
     var currEventObj = $firebaseObject(currEventRef);
-    // var currEventObj = eventSync.$asObject();
     // user's current event
     return currEventObj.$loaded().then(function() {
       return currEventObj.$value;

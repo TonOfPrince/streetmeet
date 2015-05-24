@@ -1,7 +1,7 @@
 angular.module('sm-meetApp.vertDrag', []).
 directive('draggable', function($document) {
   return function(scope, element, attr) {
-    var $sendInfo = $('.hTabs');
+    var $sendInfo = $('.friend-section');
     var startY = 0, y = 0, offsetHeight = $sendInfo[0].offsetHeight,
         maxHeight = offsetHeight + $sendInfo[0].offsetTop,
         offsetTop=$sendInfo[0].offsetTop;
@@ -14,13 +14,13 @@ directive('draggable', function($document) {
     });
 
     function mapClick(event) {
-        var sendInfo = $(".hTabs")
+        var sendInfo = $(".friend-section")
         sendInfo.height(4+"em");
         y=0;
     }
 
     function searchClick(event) {
-      var sendInfo = $(".hTabs")
+      var sendInfo = $(".friend-section")
       var pageHeight = parseFloat($("#map-page").height());
       sendInfo.height(pageHeight+"px");
       y=offsetTop*-1;

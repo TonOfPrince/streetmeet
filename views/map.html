@@ -15,7 +15,7 @@
     <i class="fa fa-times times" ng-click="clearAddress()"></i>
   </div>
 
-  <div class="hTabs">
+  <div class="friend-section">
     <div class="send-section">
       <div class = "search-bar friend-search-bar" draggable>
         <i class="fa fa-search search"></i>
@@ -24,7 +24,7 @@
 
       </div>
       <div class="friend-list">
-        <div ng-repeat="friend in mockFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
+        <div ng-repeat="friend in listFriends | filter: friendFilter" class="friend" ng-click="toggleSendee(friend, $event)">
           <div class="friend-pic-wrapper">
           <img class="friend-pic" src={{friend.image}}>
           </div>
@@ -43,7 +43,7 @@
         <i class="fa fa-check send-checkmark"></i>
         <img class="chosen-friend-pic" src={{friend.image}}>
       </div>
-      <div class="send-btn">
+      <div class="send-btn" ng-click="sendStreetmeet()">
         <div class="send-symbol">
           <a>
             <i class="fa fa-paper-plane"></i>
@@ -51,5 +51,5 @@
         </div>
       </div>
     </div>
-  </div> <!-- hTabs -->
+  </div> <!-- friend-section -->
 </div>
